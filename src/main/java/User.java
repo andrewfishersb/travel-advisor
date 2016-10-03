@@ -1,9 +1,13 @@
+import org.sql2o.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
   public String name;
   public String email;
   public int age;
   public int id;
-}
+
 public User(String name, String email, int age){
   this.name = name;
   this.email = email;
@@ -28,4 +32,5 @@ public static List<User>all(){
 }
 public int getId() {
    return id;
+  }
  }

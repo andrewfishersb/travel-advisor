@@ -1,4 +1,6 @@
-
+import org.sql2o.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Flight extends Booking{
   private int id;
@@ -27,7 +29,7 @@ public class Flight extends Booking{
   public String getEndLocation(){
     return startLocation;
   }
-//all save find delete update?
+
   public static List<Flight> all(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM flights";
@@ -46,6 +48,20 @@ public class Flight extends Booking{
         .addParameter("userId",this.userId)
         .addParameter("startlocation",this.startLocation)
         .addParameter("endLocation",this.endLocation).executeUpdate().getKey();
+    }
+  }
+
+  public static Flight find(int id){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM flights WHERE id=:id";
+      return con.createQuery(sql).addParameter("id",id).executeAndFetchFirst(Flight.class);
+    }
+  }
+
+  public void delete(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "DELETE FROM flights WHERE id = :id";
+      con.createQuery(sql).addParameter("id",id).executeUpdate();
     }
   }
 
