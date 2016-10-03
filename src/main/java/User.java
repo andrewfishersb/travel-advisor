@@ -32,11 +32,11 @@ public class User {
     try(Connection con = DB.sql2o.open()){
       String flightSQL = "SELECT price FROM flights WHERE userid=:userid";
       String hotelSQL = "SELECT price FROM hotels WHERE userid=:userid";
-      String carSQL = "SELECT price FROM cars WHERE userid=:userid";
-      Integer flightCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      Integer hotelCost = con.createQuery(hotelSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      Integer carCost = con.createQuery(carSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      return flightCost + hotelCost + carCost;
+      //String carSQL = "SELECT price FROM cars WHERE userid=:userid";
+      Integer cost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      cost += con.createQuery(hotelSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      //cost += con.createQuery(carSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      return cost;
     }
   }
 

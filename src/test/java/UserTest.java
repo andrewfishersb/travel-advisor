@@ -48,7 +48,9 @@ public class UserTest{
       myUser.save();
       Flight aFlight = new Flight("Today","Tomorrow",500,2,myUser.getId(),"PDX","SBA");
       aFlight.save();
-      assertEquals(500,myUser.getTotalPrice());
+      Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",1000,2,myUser.getId());
+      aHotel.save();
+      assertEquals(1500,myUser.getTotalPrice());
     }
 
   }
