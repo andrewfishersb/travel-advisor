@@ -27,12 +27,16 @@ public class User {
     return age;
   }
 
-//possibly need to check if null value
+//possibly need to check if null value and add test to confirm total cost.
   public int getTotalPrice(){
     try(Connection con = DB.sql2o.open()){
       String flightSQL = "SELECT price FROM flights WHERE userid=:userid";
-      Integer cost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      return cost;
+      String hotelSQL = "SELECT price FROM hotels WHERE userid=:userid";
+      String carSQL = "SELECT price FROM cars WHERE userid=:userid";
+      Integer flightCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      Integer hotelCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      Integer carCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      return flightCost + hotelCost + carCost;
     }
   }
 
