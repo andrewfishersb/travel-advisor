@@ -34,8 +34,8 @@ public class User {
       String hotelSQL = "SELECT price FROM hotels WHERE userid=:userid";
       String carSQL = "SELECT price FROM cars WHERE userid=:userid";
       Integer flightCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      Integer hotelCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
-      Integer carCost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      Integer hotelCost = con.createQuery(hotelSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      Integer carCost = con.createQuery(carSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
       return flightCost + hotelCost + carCost;
     }
   }
