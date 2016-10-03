@@ -8,18 +8,23 @@ import java.util.ArrayList;
 
 public class HotelTest{
 
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
+  @Test
   public void Hotel_instantiatesHotel(){
     Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,1);
     assertTrue(aHotel instanceof Hotel);
   }
 
+  @Test
   public void Hotel_savesHotelToDataBase_tru(){
     Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,1);
     aHotel.save();
     assertTrue(Hotel.all().get(0).equals(aHotel));
   }
 
+  @Test
   public void Hotel_returnAllHotels_true(){
     Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,1);
     Hotel anotherHotel = new Hotel("Hilton","Portland","Today","Tomorrow",300,4,2);
@@ -27,12 +32,15 @@ public class HotelTest{
     anotherHotel.save();
     assertEquals(2, Hotel.all().size());
   }
+
+  @Test
   public void Hotel_findHotelsFromDataBase_true(){
     Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,1);
     aHotel.save();
     assertTrue(Hotel.find(aHotel.getId()).equals(aHotel));
   }
 
+  @Test
   public void Hotel_DeletesFromDataBase_true(){
     Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,1);
     aHotel.save();

@@ -33,7 +33,7 @@ public class Hotel extends Booking {
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO hotels (name,location,startdate,enddate,price,groupsize,userid) VALUES(:name,:location,:startdate,:enddate.:price,:groupsize,:userid)";
+      String sql = "INSERT INTO hotels (name,location,startdate,enddate,price,groupsize,userid) VALUES(:name,:location,:startdate,:enddate,:price,:groupsize,:userid)";
       this.id = (int) con.createQuery(sql,true)
         .addParameter("name",this.name)
         .addParameter("location",this.location)

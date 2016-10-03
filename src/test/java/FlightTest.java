@@ -8,20 +8,27 @@ import java.util.ArrayList;
 
 public class FlightTest{
 
+  @Rule
+  public DatabaseRule database = new DatabaseRule();
 
-//save all delete find
-
+  @Test
   public void Flight_instantiatesFlight(){
     Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"PDX","SBA");
     assertTrue(aFlight instanceof Flight);
   }
 
-  public void Flight_savesFlightToDataBase_tru(){
-    Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"PDX","SBA");
+  @Test
+  public void Flight_savesFlightToDataBase_true(){
+    Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"SBA","PDX");
     aFlight.save();
+    System.out.println("Flight: "+aFlight.getStartLocation());
+
+    System.out.println("Size: "+Flight.all().get(0).getStartLocation());
+
     assertTrue(Flight.all().get(0).equals(aFlight));
   }
 
+  @Test
   public void Flight_returnAllFlights_true(){
     Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"PDX","SBA");
     Flight anotherFlight = new Flight("Today","Tomorrow",55,2234,12,"PDX","SBA");
@@ -29,12 +36,15 @@ public class FlightTest{
     anotherFlight.save();
     assertEquals(2, Flight.all().size());
   }
+
+  @Test
   public void Flight_findFlightsFromDataBase_true(){
     Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"PDX","SBA");
     aFlight.save();
     assertTrue(Flight.find(aFlight.getId()).equals(aFlight));
   }
 
+  @Test
   public void Flight_DeletesFromDataBase_true(){
     Flight aFlight = new Flight("Today","Tomorrow",500,2,1,"PDX","SBA");
     aFlight.save();

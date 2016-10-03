@@ -41,7 +41,7 @@ public abstract class Booking {
       return false;
     } else {
       Booking newBooking = (Booking) otherBooking;
-      return this.startDate.equals(newBooking.endDate) && this.endDate.equals(newBooking.endDate) && this.price == newBooking.price && this.userId == newBooking.userId;
+      return this.startDate.equals(newBooking.startDate) && this.endDate.equals(newBooking.endDate) && this.price == newBooking.price && this.userId == newBooking.userId;
     }
   }
 

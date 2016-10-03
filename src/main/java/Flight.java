@@ -45,8 +45,8 @@ public class Flight extends Booking{
         .addParameter("endDate",this.endDate)
         .addParameter("price",this.price)
         .addParameter("groupsize",this.groupSize)
-        .addParameter("userId",this.userId)
-        .addParameter("startlocation",this.startLocation)
+        .addParameter("userid",this.userId)
+        .addParameter("startLocation",this.startLocation)
         .addParameter("endLocation",this.endLocation).executeUpdate().getKey();
     }
   }
