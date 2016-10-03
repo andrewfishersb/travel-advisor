@@ -69,6 +69,45 @@ ALTER SEQUENCE flights_id_seq OWNED BY flights.id;
 
 
 --
+-- Name: hotels; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE hotels (
+    id integer NOT NULL,
+    name character varying,
+    location character varying,
+    startdate character varying,
+    enddate character varying,
+    price integer,
+    groupsize integer,
+    userid integer
+);
+
+
+ALTER TABLE hotels OWNER TO "Guest";
+
+--
+-- Name: hotels_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE hotels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hotels_id_seq OWNER TO "Guest";
+
+--
+-- Name: hotels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE hotels_id_seq OWNED BY hotels.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
@@ -114,6 +153,13 @@ ALTER TABLE ONLY flights ALTER COLUMN id SET DEFAULT nextval('flights_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
+ALTER TABLE ONLY hotels ALTER COLUMN id SET DEFAULT nextval('hotels_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -130,6 +176,21 @@ COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, e
 --
 
 SELECT pg_catalog.setval('flights_id_seq', 1, false);
+
+
+--
+-- Data for Name: hotels; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY hotels (id, name, location, startdate, enddate, price, groupsize, userid) FROM stdin;
+\.
+
+
+--
+-- Name: hotels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('hotels_id_seq', 1, false);
 
 
 --
@@ -153,6 +214,14 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 ALTER TABLE ONLY flights
     ADD CONSTRAINT flights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hotels_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY hotels
+    ADD CONSTRAINT hotels_pkey PRIMARY KEY (id);
 
 
 --

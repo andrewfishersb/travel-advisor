@@ -37,7 +37,7 @@ public abstract class Booking {
 
   @Override
   public boolean equals(Object otherBooking){
-    if(!(otherBooking instance of Booking)){
+    if(!(otherBooking instanceof Booking)){
       return false;
     }
     else{
