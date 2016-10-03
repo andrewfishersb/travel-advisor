@@ -27,6 +27,32 @@ public class User {
     return age;
   }
 
+//possibly need to check if null value
+  public int getTotalPrice(){
+    try(Connection con = DB.sql2o.open()){
+      String flightSQL = "SELECT price FROM flights WHERE userid=:userid";
+      Integer cost = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Integer.class);
+      return cost;
+    }
+  }
+
+
+  public List<Object> getBookings(){
+    try(Connection con = DB.sql2o.open()){
+      List<Object> allBookings = new ArrayList<Object>();
+      String flightSQL = "SELECT * FROM flights WHERE userid=:userid";
+      String hotelSQL = "SELECT * FROM hotels WHERE userid=:userid";
+      // String carSQL = "SELECT * FROM cars WHERE userid=:id";
+      Flight theFlight = con.createQuery(flightSQL).addParameter("userid",this.id).executeAndFetchFirst(Flight.class);
+      Hotel theHotel = con.createQuery(hotelSQL).addParameter("userid",this.id).executeAndFetchFirst(Hotel.class);
+      // Car theCar = con.createQuery(carSQL).addParameter("id",this.id).executeAndFetch(Car.class);
+      allBookings.add(theFlight);
+      allBookings.add(theHotel);
+      // allBookings.add(theCar);
+      return allBookings;
+    }
+  }
+
   public static List<User> all() {
     String sql = "SELECT * FROM users";
     try(Connection con = DB.sql2o.open()) {
