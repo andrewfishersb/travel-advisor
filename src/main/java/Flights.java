@@ -1,5 +1,5 @@
 public class Flights{
-  private int price;
+  private double price;
   private boolean direct;
   private int outBoundCarrierId;
   private int outBoundOriginId;
@@ -11,7 +11,7 @@ public class Flights{
   private int inBoundDestinationId;
 
 
-  public Flights(int price, boolean direct){
+  public Flights(double price, boolean direct){
     this.price = price;
     this.direct = direct;
   }
@@ -65,6 +65,14 @@ public class Flights{
 
   public String getInDestinationDate(){
     return inBoundDestinationDate;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public boolean getDirect() {
+    return direct;
   }
 
 }
