@@ -35,7 +35,7 @@ public class User {
 
 
   public static User login(String email, String password){
-    try(Connection con = sql2o.open()){
+    try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM users WHERE email =:email, password =:password";
       User user = con.createQuery(sql)
         .addParameter("email",email)

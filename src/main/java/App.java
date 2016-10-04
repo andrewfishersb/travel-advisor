@@ -15,11 +15,11 @@ public class App{
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("user", request.session().attribute("user"));
-      if (User.isLoggedIn(emailpassword)) {
-        model.put("template", "templates/form.vtl");
-      } else {
+      // if (User.isLoggedIn(emailpassword)) {
+      //   model.put("template", "templates/form.vtl");
+      // } else {
         model.put("template", "templates/user-login.vtl");
-      }
+      // }
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
