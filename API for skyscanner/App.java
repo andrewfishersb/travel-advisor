@@ -19,15 +19,15 @@ public class App {
     String layout = "templates/layout.vtl";
     String header = "templates/header.vtl";
 
-    get("/", (request, response) -> {
-      Map <String, Object> model = new HashMap <String, Object>();
-      model.put("template", "templates/index.vtl");
-      model.put("title", "Adam Hair Salon");
-      model.put("header", header);
-      model.put("css", "");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-   
+    // get("/", (request, response) -> {
+    //   Map <String, Object> model = new HashMap <String, Object>();
+    //   model.put("template", "templates/index.vtl");
+    //   model.put("title", "Adam Hair Salon");
+    //   model.put("header", header);
+    //   model.put("css", "");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+
    	get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
       String market = request.queryParams("market");
@@ -39,7 +39,7 @@ public class App {
       String inboundPartialDate = request.queryParams("inboundPartialDate");
       String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/" + market + "/" + currency + "/" +locale + "/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
       String output = getData(url);
-     
+
       JSONParser parser = new JSONParser();
 
       try{
@@ -54,12 +54,14 @@ public class App {
            System.out.println(obj2.get("Code"));
            System.out.println();
 
+           JSONArray  quoteArray = (JSONArray) 
+
       }catch(ParseException pe){
-    
+
          System.out.println("position: " + pe.getPosition());
          System.out.println(pe);
       }
-     
+
       model.put("template", "templates/index.vtl");
       model.put("title", "Adam Hair Salon");
       model.put("header", header);
@@ -87,7 +89,7 @@ public class App {
         (conn.getInputStream())));
 
       String output;
-      
+
       while ((output = br.readLine()) != null) {
         json += output;
       }
