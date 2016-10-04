@@ -1,0 +1,36 @@
+#foreach ($carrier in $carriers) 
+  <h1>$carrier.getAirline()</h1>
+
+  #foreach ($flight in $flights)
+
+   #if($flight.getOutBoundCarrierId() == $carrier.getCarrierId())
+   	<h2>Outbound Flight</h2>
+   	<h3>Cost: $flight.getPrice()</h3>
+   	<h2>Direct: $flight.getDirect()</h2>
+   	<ul>
+   	  #foreach ($place in $places)
+   	    #if ($place.getPlaceId() == $flight.getOutBoundOriginId())
+   	  	  <li>Origin Airport: $place.getScannerCode()</li>
+   	  	#end
+   	  #end
+   	  <li>Destination Date: $flight.getOutDestinationDate()<li>
+   	 </ul>
+   #end
+
+   #if($flight.getInBoundCarrierId() == $carrier.getCarrierId())
+     <h2>Inbound Flight</h2>
+     <h3>Cost: $flight.getPrice()</h3>
+   	 <h2>Direct: $flight.getDirect()</h2>
+   	 <ul>
+   	  #foreach ($place in $places)
+   	    #if ($place.getPlaceId() == $flight.getInBoundOriginId())
+   	  	  <li>Origin Airport: $place.getScannerCode()</li>
+   	  	#end
+   	  #end
+   	  <li>Destination Date: $flight.getInDestinationDate()<li>
+   	 </ul>
+
+   #end
+
+  #end
+#end
