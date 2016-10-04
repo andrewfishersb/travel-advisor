@@ -18,22 +18,22 @@ public class Flights{
 
   public void setOutBoundDestinationInformation(int outBoundOriginId, int outBoundDestinationId, String outBoundDestinationDate){
     this.outBoundOriginId = outBoundOriginId;
-    this.outboundPartialDate = outBoundDestinationId;
+    this.outBoundDestinationId = outBoundDestinationId;
     this.outBoundDestinationDate = outBoundDestinationDate;
   }
 
   public void setOutBoundCarrierId(int outBoundCarrierId){
-      this.outBoundCarrierId = outboundBoundCarrierId;
+      this.outBoundCarrierId = outBoundCarrierId;
   }
 
   public void setInBoundDestinationInformation(int inBoundOriginId, int inBoundDestinationId, String inBoundDestinationDate){
     this.inBoundOriginId = inBoundOriginId;
-    this.inboundPartialDate = inBoundDestinationId;
+    this.inBoundDestinationId = inBoundDestinationId;
     this.inBoundDestinationDate = inBoundDestinationDate;
   }
 
   public void setInBoundCarrierId(int inBoundCarrierId){
-      this.inBoundCarrierId = inBoundBoundCarrierId;
+      this.inBoundCarrierId = inBoundCarrierId;
   }
 
   public int getOutBoundCarrierId(){

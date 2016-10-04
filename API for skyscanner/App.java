@@ -47,14 +47,62 @@ public class App {
 
           JSONObject jsonObject = (JSONObject) obj;
 
-          JSONArray array = (JSONArray) jsonObject.get("Currencies");
+          JSONArray places = (JSONArray) jsonObject.get("Places");
 
-          JSONObject obj2 = (JSONObject)array.get(0);
+          ArrayList<Place> placesList = new ArrayList<Place>();
 
-           System.out.println(obj2.get("Code"));
-           System.out.println();
+          for (int i = 0; i<places.length(); i++) {
+            JSONObject data = (JSONObject) places.get(i);
+            Place newPlace = new Place(data.get("PlaceId"), data.get("SkyscannerCode"));
+            placesList.add(newPlace);
+          }
 
-           JSONArray  quoteArray = (JSONArray) 
+          JSONArray carriers = (JSONArray) jsonObject.get("Carriers");
+
+          ArrayList<Carrier> carriersList = new ArrayList<Carrier>();
+
+          for (int i=0; i<carriers.length() ; i++ ) {
+            JSONObject carrierData = (JSONObject) carriers.get(i);
+            Carrier newCarrier = new Carrier(carrierData.get("CarrierId"),carrierData.get("Name"));
+            carriersList.add(newCarrier);
+          }
+
+          JSONArray quotes = (JSONArray) jsonObject.get("Quotes");
+
+          ArrayList<Flights> flightsList = new ArrayList<Flights>();
+
+          for (int i=0; i<quotes.length();i++) {
+            JSONObject quotesData = (JSONObject) quotes.get(i);
+
+            Flights newFlight = new Flights (quotesData.get("MinPrice"), quotesData.get("Direct"));
+
+            JSONArray outBound = (JSONArray) jsonObject.get("OutboundLeg");
+            JSONObject outBoundData = (JSONObject) outBound.get(0);
+
+            newFlight.setOutBoundDestinationInformation(outBoundData.get("OriginId"), outBoundData.get("DestinationId"), outBoundData.get("DepartureDate"));
+
+            JSONArray outBoundCarrierId = (JSONArray) jsonObject.get("CarrierIds");
+            JSONObject outBoundDataCarrierId = (JSONObject) outBoundCarrierId.get(0);
+            newFlight.setOutBoundCarrierId(outBoundDataCarrierId);
+
+            JSONArray inBound = (JSONArray) jsonObject.get("InboundLeg");
+            JSONObject inBoundData = (JSONObject) inBound.get(0);
+
+            newFlight.setInBoundDestinationInformation(inBoundData.get("OriginId"), inBoundData.get("DestinationId"), inBoundData.get("DepartureDate"));
+
+            JSONArray inBoundCarrierId = (JSONArray) jsonObject.get("CarrierIds");
+            JSONObject inBoundDataCarrierId = (JSONObject) inBoundCarrierId.get(0);
+            newFlight.setInBoundCarrierId(inBoundDataCarrierId);
+
+            flightsList.add(newFlight);
+          }
+
+          // JSONObject obj2 = (JSONObject)array.get(0);
+          //
+          //  System.out.println(obj2.get("Code"));
+          //  System.out.println();
+          //
+          //  JSONArray  quoteArray = (JSONArray)
 
       }catch(ParseException pe){
 
