@@ -2,7 +2,7 @@ import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//maybe add name for brand chain and company
 public abstract class Booking {
   protected String startDate;
   protected String endDate;
@@ -37,12 +37,11 @@ public abstract class Booking {
 
   @Override
   public boolean equals(Object otherBooking){
-    if(!(otherBooking instanceof Booking)){
+    if(!(otherBooking instanceof Booking)) {
       return false;
-    }
-    else{
+    } else {
       Booking newBooking = (Booking) otherBooking;
-      return this.startDate.equals(newBooking.endDate) && this.endDate.equals(newBooking.endDate) && this.price == newBooking.price && this.userId == newBooking.userId;
+      return this.startDate.equals(newBooking.startDate) && this.endDate.equals(newBooking.endDate) && this.price == newBooking.price && this.userId == newBooking.userId;
     }
   }
 
