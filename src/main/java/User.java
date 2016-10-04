@@ -4,12 +4,14 @@ import java.util.List;
 
 public class User {
   private String name;
+  private String password;
   private String email;
   private int age;
   private int id;
 
-  public User(String name, String email, int age){
+  public User(String name, String password, String email, int age){
     this.name = name;
+    this.password = password;
     this.email = email;
     this.age = age;
     this.id = id;
@@ -27,6 +29,35 @@ public class User {
     return age;
   }
 
+  public String getPassword(){
+    return password;
+  }
+
+
+  public static User login(String email, String password){
+    try(Connection con = sql2o.open()){
+      String sql = "SELECT * FROM users WHERE email =:email, password =:password";
+      User user = con.createQuery(sql)
+        .addParameter("email",email)
+        .addParameter("password",password).executeAndFetchFirst(User.class);
+      if(user ==null){
+         throw new RuntimeException("Invalid username and/or password");
+      }else{
+        return user;
+      }
+    }
+  }
+
+
+
+  public static boolean isLoggedIn(String email, String password){
+    try{
+      User.login(email,password);
+    }catch(RuntimeException e){
+      return false;
+    }
+    return true;
+  }
 //possibly need to check if null value and add test to confirm total cost.
   public int getTotalPrice(){
     try(Connection con = DB.sql2o.open()){
@@ -76,15 +107,17 @@ public class User {
      User newUser = (User) otherUser;
      return this.getName().equals(newUser.getName()) &&
             this.getEmail().equals(newUser.getEmail()) &&
+            this.getPassword().equals(newUser.getPassword()) &&
             this.getAge() == newUser.getAge();
     }
   }
 
    public void save() {
      try(Connection con = DB.sql2o.open()) {
-       String sql = "INSERT INTO Users (name, email, age) VALUES (:name, :email, :age)";
+       String sql = "INSERT INTO Users (name, password, email, age) VALUES (:name, :password, :email, :age)";
        this.id = (int) con.createQuery(sql, true)
          .addParameter("name", this.name)
+         .addParameter("password", this.password)
          .addParameter("email", this.email)
          .addParameter("age", this.age)
          .executeUpdate()

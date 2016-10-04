@@ -6,7 +6,6 @@ public class Flight extends Booking{
   private int id;
   private String startLocation;
   private String endLocation;
-  private String dateReturn;
 
   public Flight(String startDate, String endDate, int price, int groupsize,int userId,String startLocation,String endLocation){
     this.startDate = startDate;

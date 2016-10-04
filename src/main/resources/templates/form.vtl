@@ -1,0 +1,37 @@
+<div id="background">
+  <div class="container">
+
+
+  <div class="jumbotron">
+    <form action="/itinerary/flights/results" method="post">
+      <label for="">Flying From:</label>
+      <div class="form-group">
+        <select class="form-control" name="depart">
+          <option value="NON">---Select Airport---</option>
+          <option value="LAX">Los Angeles</option>
+          <option value="JFK">New York</option>
+          <option value="DFW">Dallas/Fort Worth</option>
+          <option value="LHR">London Heathrow</option>
+        </select>
+      </div>
+      <label for="">Flying to:</label>
+      <div class="form-group">
+        <select class="form-control" name="arrive">
+          <option value="NON">---Select Airport---</option>
+          <option value="LAX">Los Angeles</option>
+          <option value="JFK">New York</option>
+          <option value="DFW">Dallas/Fort Worth</option>
+          <option value="LHR">London Heathrow</option>
+        </select>
+      </div>
+      <input type="date" name="depart-date">
+      <input type="date" name="return-date">
+      <div class="form-group">
+        <label for="group-size">Group Size</label>
+        <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
+      </div>
+      <button type="submit" name="button" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+</div>
