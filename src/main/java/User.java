@@ -8,6 +8,7 @@ public class User {
   private String email;
   private int age;
   private int id;
+  private static boolean loggedIn;
 
   public User(String name, String password, String email, int age){
     this.name = name;
@@ -15,6 +16,7 @@ public class User {
     this.email = email;
     this.age = age;
     this.id = id;
+    this.loggedIn = false;
   }
 
   public String getName(){
@@ -33,32 +35,22 @@ public class User {
     return password;
   }
 
+  public static boolean getLogInStatus(){
+    return loggedIn;
+  }
 
   public static User login(String email, String password){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM users WHERE email =:email, password =:password";
-      User user = con.createQuery(sql)
-        .addParameter("email",email)
-        .addParameter("password",password).executeAndFetchFirst(User.class);
+      String sql = "SELECT * FROM users WHERE email =:email AND password =:password";
+      User user = con.createQuery(sql).addParameter("email", email).addParameter("password", password).executeAndFetchFirst(User.class);
       if(user ==null){
          throw new RuntimeException("Invalid username and/or password");
-      }else{
-        return user;
       }
+        loggedIn=true;
+        return user;
     }
   }
 
-
-
-  public static boolean isLoggedIn(String email, String password){
-    try{
-      User.login(email,password);
-    }catch(RuntimeException e){
-      return false;
-    }
-    return true;
-  }
-//possibly need to check if null value and add test to confirm total cost.
   public int getTotalPrice(){
     try(Connection con = DB.sql2o.open()){
       String flightSQL = "SELECT price FROM flights WHERE userid=:userid";
@@ -70,7 +62,6 @@ public class User {
       return cost;
     }
   }
-
 
   public List<Object> getBookings(){
     try(Connection con = DB.sql2o.open()){
@@ -114,7 +105,7 @@ public class User {
 
    public void save() {
      try(Connection con = DB.sql2o.open()) {
-       String sql = "INSERT INTO Users (name, password, email, age) VALUES (:name, :password, :email, :age)";
+       String sql = "INSERT INTO users (name, password, email, age) VALUES (:name, :password, :email, :age)";
        this.id = (int) con.createQuery(sql, true)
          .addParameter("name", this.name)
          .addParameter("password", this.password)
@@ -127,7 +118,7 @@ public class User {
 
    public void delete() {
     try(Connection con = DB.sql2o.open()) {
-    String sql = "DELETE FROM Users WHERE id = :id;";
+    String sql = "DELETE FROM users WHERE id = :id;";
     con.createQuery(sql)
       .addParameter("id", id)
       .executeUpdate();
@@ -136,7 +127,7 @@ public class User {
 
   public static User find(int id){
     try(Connection con = DB.sql2o.open()) {
-    String sql = "SELECT * FROM Users WHERE id = :id";
+    String sql = "SELECT * FROM users WHERE id = :id";
     return con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(User.class);

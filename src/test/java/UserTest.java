@@ -44,13 +44,32 @@ public class UserTest{
 
     @Test
     public void getTotalPrice_FindsFinalPrice(){
-      User myUser = new User("Moe", "g@user.com", 22);
+      User myUser = new User("Moe","password", "g@user.com", 22);
       myUser.save();
       Flight aFlight = new Flight("Today","Tomorrow",500,2,myUser.getId(),"PDX","SBA");
       aFlight.save();
       Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",1000,2,myUser.getId());
       aHotel.save();
       assertEquals(1500,myUser.getTotalPrice());
+    }
+
+    // rejected from login, logged in successfully
+    @Test
+    public void login_UserLogsInSuccessfully_true(){
+      User user1 = new User("Andrew Merrell","1234password","andrew@merrell.com",28);
+      user1.save();
+      User user2 = new User("Andrew Fisher","password1234","andrew@fisher.com",25);
+      user2.save();
+      User user3 = new User("Jackson Meyer","pas1swo2rd3","jackson@meyer.com",24);
+      user3.save();
+      assertTrue(User.login("andrew@fisher.com","password1234").equals(user2));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void login_FailedLogin(){
+      User aUser = new User("Andrew Merrell","1234password","andrew@merrell.com",28);
+      aUser.save();
+      User.login("andrew@fisher.com","1234password");
     }
 
   }

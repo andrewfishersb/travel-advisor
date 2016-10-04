@@ -15,15 +15,33 @@ public class App{
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("user", request.session().attribute("user"));
-      // if (User.isLoggedIn(emailpassword)) {
-      //   model.put("template", "templates/form.vtl");
-      // } else {
+      if (User.getLogInStatus()) {
+        model.put("template", "templates/form.vtl");
+      } else {
         model.put("template", "templates/user-login.vtl");
-      // }
+      }
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/users/new", (request, response) -> {
+
+    post("/logged-in", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String userEmail = request.queryParams("user-email");
+      String userPassword = request.queryParams("user-password");
+      User loggedInUser = User.login(userEmail,userPassword);
+      if (User.getLogInStatus()) {
+
+        request.session().attribute("user", loggedInUser);
+        model.put("template", "templates/form.vtl");
+      } else {
+        model.put("template", "templates/user-login.vtl");//error message or something
+      }
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+    post("/create-account", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       String userName = request.queryParams("user-name");
       String userEmail = request.queryParams("user-email");
@@ -31,8 +49,9 @@ public class App{
       int userAge = Integer.parseInt(request.queryParams("user-age"));
       User newUser = new User(userName, userPassword, userEmail, userAge);
       newUser.save();
-      request.session().attribute("user", newUser);
-      response.redirect("/");
+      // request.session().attribute("user", newUser);
+      model.put("user",newUser);
+      model.put("template","templates/form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
