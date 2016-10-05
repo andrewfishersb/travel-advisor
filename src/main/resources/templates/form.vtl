@@ -3,10 +3,10 @@
 
   <h1>WELCOME $user.getName()</h1>
   <div class="jumbotron">
-    <form action="/itinerary/flights/results" method="post">
-      <label for="">Flying From:</label>
+    <form action="/find" method="get">
+      <label for="originPlace">Flying From:</label>
       <div class="form-group">
-        <select class="form-control" name="depart">
+        <select class="form-control" name="originPlace">
           <option value="NON">---Select Airport---</option>
           <option value="SBA">Santa Barbara</option>
           <option value="SBP">San Luis Obispo</option>
@@ -23,9 +23,9 @@
           <option value="PEK">Beijing Capital International</option>
         </select>
       </div>
-      <label for="">Flying to:</label>
+      <label for="destinationPlace">Flying to:</label>
       <div class="form-group">
-        <select class="form-control" name="arrive">
+        <select class="form-control" name="destinationPlace">
           <option value="NON">---Select Airport---</option>
           <option value="SBA">Santa Barbara</option>
           <option value="SBP">San Luis Obispo</option>
@@ -42,8 +42,8 @@
           <option value="PEK">Beijing Capital International</option>
         </select>
       </div>
-      <input type="date" name="depart-date">
-      <input type="date" name="return-date">
+      <input type="date" name="outboundPartialDate">
+      <input type="date" name="inboundPartialDate">
       <div class="form-group">
         <label for="group-size">Group Size</label>
         <input type="number" max="8" min="1" name="group-size" value="" class="form-control">

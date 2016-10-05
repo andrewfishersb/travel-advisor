@@ -12,10 +12,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 
-public class App{
+public class App {
   public static void main(String[] args) {
-  staticFileLocation("/public");
-  String layout = "templates/layout.vtl";
+    staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -28,14 +28,12 @@ public class App{
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-
     post("/logged-in", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       String userEmail = request.queryParams("user-email");
       String userPassword = request.queryParams("user-password");
       User loggedInUser = User.login(userEmail,userPassword);
       if (User.getLogInStatus()) {
-
         request.session().attribute("user", loggedInUser);
         model.put("template", "templates/form.vtl");
       } else {
@@ -44,7 +42,6 @@ public class App{
       response.redirect("/");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
 
     post("/create-account", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -67,18 +64,18 @@ public class App{
     //   return new ModelAndView(model, layout);
     // }, new VelocityTemplateEngine());
 
-    post("/itinerary/flights/results", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      String flightDepart = request.queryParams("depart");
-      String flightArrive = request.queryParams("arrive");
-      String flightDepartDate = request.queryParams("depart-date");
-      String flightReturnDate = request.queryParams("return-date");
-      int groupSize = Integer.parseInt(request.queryParams("group-size"));
-      Flight newFlight = new Flight(flightDepartDate, flightReturnDate, 0, groupSize, 1, flightDepart, flightArrive);
-      newFlight.save();
-      response.redirect("itinerary/flights/" + flightDepart + "/" + flightArrive + "/" + flightDepartDate + "/" + flightReturnDate);
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+    // post("/itinerary/flights/results", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   String flightDepart = request.queryParams("depart");
+    //   String flightArrive = request.queryParams("arrive");
+    //   String flightDepartDate = request.queryParams("depart-date");
+    //   String flightReturnDate = request.queryParams("return-date");
+    //   int groupSize = Integer.parseInt(request.queryParams("group-size"));
+    //   Flight newFlight = new Flight(flightDepartDate, flightReturnDate, 0, groupSize, 1, flightDepart, flightArrive);
+    //   newFlight.save();
+    //   response.redirect("itinerary/flights/" + flightDepart + "/" + flightArrive + "/" + flightDepartDate + "/" + flightReturnDate);
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
 
     get("/itinerary/flights/itinerary/flights/LAX/JFK/2016-10-04/2016-10-05", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -88,14 +85,18 @@ public class App{
 
     get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
-      String market = request.queryParams("market");
-      String currency = request.queryParams("currency");
-      String locale = request.queryParams("locale");
+      // String market = request.queryParams("market");
+      // String currency = request.queryParams("currency");
+      // String locale = request.queryParams("locale");
       String originPlace = request.queryParams("originPlace");
       String destinationPlace = request.queryParams("destinationPlace");
       String outboundPartialDate = request.queryParams("outboundPartialDate");
       String inboundPartialDate = request.queryParams("inboundPartialDate");
-      String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/" + market + "/" + currency + "/" +locale + "/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
+      int groupSize = Integer.parseInt(request.queryParams("group-size"));
+      Flight aFlight = new Flight(outboundPartialDate, inboundPartialDate, 0, groupSize, 1, originPlace, destinationPlace);
+      aFlight.save();
+      String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/US/USD/en-us/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
+
       String output = getData(url);
 
       JSONParser parser = new JSONParser();
@@ -132,30 +133,53 @@ public class App{
           for (int i=0; i < quotes.size();i++) {
             JSONObject quotesData = (JSONObject) quotes.get(i);
 
-            Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()));
-
             JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
+            JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
 
-            if (outBound != null) {
+            //refractor if want one way flights
+            if (outBound != null && inBound != null) {
+              Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
+
+              // outBound
               newFlight.setOutBoundDestinationInformation(Integer.parseInt(outBound.get("OriginId").toString()), Integer.parseInt(outBound.get("DestinationId").toString()), outBound.get("DepartureDate").toString());
               JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
               newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
-            }
-              
-            JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
 
-            if (inBound != null) {
+              // inBound
               newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
               JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
               newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
+
+              flightsList.add(newFlight);
             }
 
-            flightsList.add(newFlight);
+
+            // Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
+            //
+            // JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
+            // JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
+            //
+            // if (outBound != null) {
+            //   newFlight.setOutBoundDestinationInformation(Integer.parseInt(outBound.get("OriginId").toString()), Integer.parseInt(outBound.get("DestinationId").toString()), outBound.get("DepartureDate").toString());
+            //   JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
+            //   newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
+            // }
+            //
+            //
+            //
+            // if (inBound != null) {
+            //   newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
+            //   JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
+            //   newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
+            // }
+            //
+            // flightsList.add(newFlight);
           }
 
           model.put("flights", flightsList);
           model.put("places", placesList);
           model.put("carriers", carriersList);
+
       }catch(ParseException pe){
 
          System.out.println("position: " + pe.getPosition());
@@ -163,9 +187,10 @@ public class App{
       }
 
       model.put("template", "templates/find.vtl");
-      model.put("title", "Adam Hair Salon");
-      model.put("header", header);
-      model.put("css", "");
+      model.put("user", request.session().attribute("user"));
+      //model.put("title", "Adam Hair Salon");
+      //model.put("header", header);
+      //model.put("css", "");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

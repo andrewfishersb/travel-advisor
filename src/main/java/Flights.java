@@ -9,11 +9,16 @@ public class Flights{
   private int inBoundCarrierId;
   private int inBoundOriginId;
   private int inBoundDestinationId;
+  private String boundQuoteDateTime;
 
-
-  public Flights(double price, boolean direct){
+  public Flights(double price, boolean direct, String boundQuoteDateTime){
     this.price = price;
     this.direct = direct;
+    this.boundQuoteDateTime = boundQuoteDateTime;
+  }
+
+  public String getBoundQuoteDateTime() {
+    return boundQuoteDateTime;
   }
 
   public void setOutBoundDestinationInformation(int outBoundOriginId, int outBoundDestinationId, String outBoundDestinationDate){
