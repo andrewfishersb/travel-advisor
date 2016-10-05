@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Booking {
   protected String startDate;
   protected String endDate;
-  protected int price;
+  protected double price;
   protected int groupSize;
   protected int userId;
   protected int id;
@@ -19,7 +19,7 @@ public abstract class Booking {
     return endDate;
   }
 
-  public int getPrice() {
+  public double getPrice() {
     return price;
   }
 

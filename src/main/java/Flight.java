@@ -6,9 +6,10 @@ public class Flight extends Booking{
   private int id;
   private String startLocation;
   private String endLocation;
-  private Flights flights; //should have a list of flights associated with this flight
+  private String carrier;
+  // private Flights flights; //should have a list of flights associated with this flight
 
-  public Flight(String startDate, String endDate, int price, int groupsize,int userId,String startLocation,String endLocation){
+  public Flight(String startDate, String endDate, double price, int groupsize,int userId,String startLocation,String endLocation, String carrier){
     this.startDate = startDate;
     this.endDate = endDate;
     this.price = price;
@@ -16,6 +17,7 @@ public class Flight extends Booking{
     this.userId = userId;
     this.startLocation = startLocation;
     this.endLocation = endLocation;
+    this.carrier = carrier;
   }
 
   public int getId(){
@@ -43,7 +45,7 @@ public class Flight extends Booking{
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO flights (startDate, endDate,startLocation,endLocation, price, groupsize,userid) VALUES (:startDate, :endDate, :startLocation, :endLocation,:price,:groupsize,:userid)";
+      String sql = "INSERT INTO flights (startdate, enddate,startLocation,endLocation, price, groupsize,userid,carrier) VALUES (:startDate, :endDate, :startLocation, :endLocation,:price,:groupsize,:userid,:carrier)";
       this.id = (int) con.createQuery(sql,true)
         .addParameter("startDate",this.startDate)
         .addParameter("endDate",this.endDate)
@@ -51,7 +53,9 @@ public class Flight extends Booking{
         .addParameter("groupsize",this.groupSize)
         .addParameter("userid",this.userId)
         .addParameter("startLocation",this.startLocation)
-        .addParameter("endLocation",this.endLocation).executeUpdate().getKey();
+        .addParameter("endLocation",this.endLocation)
+        .addParameter("carrier",this.carrier)
+        .executeUpdate().getKey();
     }
   }
 

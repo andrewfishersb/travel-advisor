@@ -1,5 +1,4 @@
-<h1>Flight Results</h1>
-<h1>$user.getId</h1>
+<h1>Flights From $originPlace to $destinationPlace </h1>
 
 #if ($carriers.size() > 0)
 #foreach ($carrier in $carriers)
@@ -26,7 +25,15 @@
         <li>Destination Date: $flight.getOutDestinationDate()</li>
       </ul>
       #end
-      <form class="buy" action="/" method="post">
+      <form class="buy" action="/buy" method="post">
+        <input name="cost" type="hidden" value="$flight.getPrice()" />
+        <input name="airline" type="hidden" value="$carrier.getAirline()" />
+        <input name="origin" type="hidden" value="$originPlace" />
+        <input name="destination" type="hidden" value="$destinationPlace" />
+        <input name="start" type="hidden" value="$startdate" />
+        <input name="end" type="hidden" value="$enddate" />
+        <input name="group-size" type="hidden" value="$group-size" />
+        <input name="userId" type="hidden" value="$user.getId()" />
         <button class="btn btn-danger" type="submit" name="button">Add Flight</button>
       </form>
     </div>

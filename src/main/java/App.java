@@ -77,6 +77,25 @@ public class App {
     //   return new ModelAndView(model, layout);
     // }, new VelocityTemplateEngine());
 
+    //creates the train
+    post("/buy", (request, response) ->{
+      Map<String,Object> model = new HashMap<String, Object>();
+      String airline = request.queryParams("airline");
+      String origin = request.queryParams("origin");
+      String destination = request.queryParams("destination");
+      String startDate = request.queryParams("start");
+      String endDate = request.queryParams("end");
+      double pricePerTicket =Double.parseDouble(request.queryParams("cost"));
+      int groupSize = Integer.parseInt(request.queryParams("group-size"));
+      int userId = Integer.parseInt(request.queryParams("userId"));
+      Flight boughtFlight = new Flight(startDate, endDate, pricePerTicket,groupSize,userId, origin, destination,airline);
+      boughtFlight.save();
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    },new VelocityTemplateEngine());
+
+
+
     get("/itinerary/flights/itinerary/flights/LAX/JFK/2016-10-04/2016-10-05", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/flight-results.vtl");
@@ -85,9 +104,6 @@ public class App {
 
     get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
-      // String market = request.queryParams("market");
-      // String currency = request.queryParams("currency");
-      // String locale = request.queryParams("locale");
       String originPlace = request.queryParams("originPlace");
       String destinationPlace = request.queryParams("destinationPlace");
       String outboundPartialDate = request.queryParams("outboundPartialDate");
@@ -96,6 +112,11 @@ public class App {
       String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/US/USD/en-us/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
 
       String output = getData(url);
+      model.put("originPlace", originPlace);
+      model.put("destinationPlace", destinationPlace);
+      model.put("startdate",outboundPartialDate);
+      model.put("enddate",inboundPartialDate);
+      model.put("group-size",groupSize);
 
       JSONParser parser = new JSONParser();
 

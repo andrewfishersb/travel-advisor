@@ -41,7 +41,8 @@ CREATE TABLE flights (
     groupsize integer,
     userid integer,
     startlocation character varying,
-    endlocation character varying
+    endlocation character varying,
+    carrier character varying
 );
 
 
@@ -115,11 +116,47 @@ CREATE TABLE users (
     id integer NOT NULL,
     name character varying,
     email character varying,
-    age integer
+    age integer,
+    password character varying
 );
 
 
 ALTER TABLE users OWNER TO "Guest";
+
+--
+-- Name: users_booking; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE users_booking (
+    id integer NOT NULL,
+    flightid integer,
+    hotelid integer,
+    carid integer
+);
+
+
+ALTER TABLE users_booking OWNER TO "Guest";
+
+--
+-- Name: users_booking_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE users_booking_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_booking_id_seq OWNER TO "Guest";
+
+--
+-- Name: users_booking_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE users_booking_id_seq OWNED BY users_booking.id;
+
 
 --
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
@@ -164,10 +201,17 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY users_booking ALTER COLUMN id SET DEFAULT nextval('users_booking_id_seq'::regclass);
+
+
+--
 -- Data for Name: flights; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, endlocation) FROM stdin;
+COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, endlocation, carrier) FROM stdin;
 \.
 
 
@@ -175,7 +219,7 @@ COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, e
 -- Name: flights_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('flights_id_seq', 1, false);
+SELECT pg_catalog.setval('flights_id_seq', 90, true);
 
 
 --
@@ -197,15 +241,30 @@ SELECT pg_catalog.setval('hotels_id_seq', 1, false);
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY users (id, name, email, age) FROM stdin;
+COPY users (id, name, email, age, password) FROM stdin;
 \.
+
+
+--
+-- Data for Name: users_booking; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY users_booking (id, flightid, hotelid, carid) FROM stdin;
+\.
+
+
+--
+-- Name: users_booking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('users_booking_id_seq', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('users_id_seq', 1, false);
+SELECT pg_catalog.setval('users_id_seq', 6, true);
 
 
 --
@@ -222,6 +281,14 @@ ALTER TABLE ONLY flights
 
 ALTER TABLE ONLY hotels
     ADD CONSTRAINT hotels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_booking_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY users_booking
+    ADD CONSTRAINT users_booking_pkey PRIMARY KEY (id);
 
 
 --
