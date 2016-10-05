@@ -37,6 +37,10 @@ public class Flight extends Booking{
     }
   }
 
+  public void setUserId(int userId){
+    this.userId=userId;
+  }
+
   public void save(){
     try(Connection con = DB.sql2o.open()){
       String sql = "INSERT INTO flights (startDate, endDate,startLocation,endLocation, price, groupsize,userid) VALUES (:startDate, :endDate, :startLocation, :endLocation,:price,:groupsize,:userid)";
