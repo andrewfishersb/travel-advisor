@@ -24,12 +24,32 @@ public class Flight extends Booking{
     return id;
   }
 
+  public int getGroupSize(){
+    return groupSize;
+  }
+
+  public String getCarrier() {
+    return carrier;
+  }
+
   public String getStartLocation(){
     return startLocation;
   }
 
   public String getEndLocation(){
-    return startLocation;
+    return endLocation;
+  }
+
+  public String getStartDate() {
+    return startDate;
+  }
+
+  public String getEndDate() {
+    return endDate;
+  }
+
+  public double getPrice() {
+    return price;
   }
 
   public static List<Flight> all(){
@@ -61,7 +81,7 @@ public class Flight extends Booking{
 
   public static Flight find(int id){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM flights WHERE id=:id";
+      String sql = "SELECT * FROM flights WHERE userid=:id";
       return con.createQuery(sql).addParameter("id",id).executeAndFetchFirst(Flight.class);
     }
   }

@@ -20,7 +20,11 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("user", request.session().attribute("user"));
-      if (User.getLogInStatus()) {
+      User user = request.session().attribute("user");
+      if (user.getLogInStatus()) {
+        model.put("flight", Flight.find(user.getId()));
+        model.put("hotel", Hotel.find(user.getId()));
+        model.put("car", Car.find(user.getId()));
         model.put("template", "templates/index.vtl");
       } else {
         model.put("template", "templates/user-login.vtl");
@@ -51,7 +55,8 @@ public class App {
       int userAge = Integer.parseInt(request.queryParams("user-age"));
       User newUser = new User(userName, userPassword, userEmail, userAge);
       newUser.save();
-      // request.session().attribute("user", newUser);
+      newUser.login(userEmail, userPassword);
+      request.session().attribute("user", newUser);
       model.put("user",newUser);
       model.put("template","templates/index.vtl");
       return new ModelAndView(model, layout);
@@ -93,6 +98,62 @@ public class App {
       response.redirect("/");
       return new ModelAndView(model, layout);
     },new VelocityTemplateEngine());
+
+    post("/hotel", (request,response)->{
+      Map<String,Object> model = new HashMap<String, Object>();
+      String hotel = request.queryParams("hotel");
+      int nightsBooked = Integer.parseInt(request.queryParams("night"));
+      int roomsBooked = Integer.parseInt(request.queryParams("room"));
+      int userId = Integer.parseInt(request.queryParams("userId"));
+      int cost = 0;
+      if (hotel.equals("Marriot")) {
+        cost = 195;
+      } else if (hotel.equals("La Quinta Inn and Suites")) {
+        cost = 114;
+      } else if (hotel.equals("Motel 6")) {
+        cost = 76;
+      } else if (hotel.equals("Best Western")) {
+        cost = 143;
+      } else {
+        cost = 734;
+      }
+      Hotel bookedHotel = new Hotel(hotel,cost,roomsBooked,nightsBooked,userId);
+      bookedHotel.save();
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    },new VelocityTemplateEngine());
+
+    post("/car", (request,response)->{
+      Map<String,Object> model = new HashMap<String, Object>();
+      String car = request.queryParams("car");
+      int days = Integer.parseInt(request.queryParams("days"));
+      int userId = Integer.parseInt(request.queryParams("userId"));
+      int cost = 0;
+      if (car.equals("Bike")) {
+        cost = 12;
+      } else if (car.equals("Nissan Versa")) {
+        cost = 24;
+      } else if (car.equals("Toyota RAV4")) {
+        cost = 85;
+      } else if (car.equals("Buick LaCrosse")) {
+        cost = 178;
+      } else {
+        cost = 300;
+      }
+      Car bookedCar = new Car(car,days,cost,userId);
+      bookedCar.save();
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    },new VelocityTemplateEngine());
+
+    post("/logout",(request,response)->{
+      Map<String, Object> model = new HashMap<String, Object>();
+      User logoutUser = request.session().attribute("user");
+      logoutUser.logout();
+      request.session().removeAttribute("user");
+      response.redirect("/");
+      return new ModelAndView(model,layout);
+    }, new VelocityTemplateEngine());
 
     get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
