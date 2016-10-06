@@ -17,6 +17,7 @@ public class UserTest{
     myUser.delete();
     assertEquals(null, User.find(myUserId));
   }
+  
   @Test
   public void findsCoreectUser_User_true() {
     User myUser = new User("Moe","password", "g@user.com", 22);
@@ -30,30 +31,6 @@ public class UserTest{
       assertEquals(myUser, User.find(myUser.getId()));
     }
 
-    @Test
-    public void getBookings_ReturnsListOfAllUsersBookings(){
-      User myUser = new User("Moe","password", "g@user.com", 22);
-      myUser.save();
-      Flight aFlight = new Flight("Today","Tomorrow",500,2,myUser.getId(),"PDX","SBA");
-      aFlight.save();
-      Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",500,2,myUser.getId());
-      aHotel.save();
-      List<Object> bookings = myUser.getBookings();
-      assertEquals(aFlight,myUser.getBookings().get(0));
-    }
-
-    @Test
-    public void getTotalPrice_FindsFinalPrice(){
-      User myUser = new User("Moe","password", "g@user.com", 22);
-      myUser.save();
-      Flight aFlight = new Flight("Today","Tomorrow",500,2,myUser.getId(),"PDX","SBA");
-      aFlight.save();
-      Hotel aHotel = new Hotel("Marriot","Santa Barbara","Today","Tomorrow",1000,2,myUser.getId());
-      aHotel.save();
-      assertEquals(1500,myUser.getTotalPrice());
-    }
-
-    // rejected from login, logged in successfully
     @Test
     public void login_UserLogsInSuccessfully_true(){
       User user1 = new User("Andrew Merrell","1234password","andrew@merrell.com",28);

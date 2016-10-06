@@ -55,4 +55,21 @@ public class Car extends Booking{
     }
   }
 
+  public void delete(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "DELETE FROM cars WHERE id=:id";
+      con.createQuery(sql).addParameter("id",this.id).executeUpdate();
+    }
+  }
+
+  @Override
+  public boolean equals(Object otherCar) {
+   if (!(otherCar instanceof Car)) {
+     return false;
+   } else {
+     Car newCar = (Car) otherCar;
+     return this.getUserId() == newCar.getUserId();
+    }
+  }
+
 }

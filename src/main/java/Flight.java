@@ -41,10 +41,14 @@ public class Flight extends Booking{
   }
 
   public String getStartDate() {
+    String [] splitStartDate = startDate.split("-");
+    startDate = String.format("%s/%s/%s",splitStartDate[1],splitStartDate[2],splitStartDate[0]);
     return startDate;
   }
 
   public String getEndDate() {
+    String [] splitEndDate = endDate.split("-");
+    endDate = String.format("%s/%s/%s",splitEndDate[1],splitEndDate[2],splitEndDate[0]);
     return endDate;
   }
 

@@ -64,4 +64,14 @@ public class Hotel extends Booking {
           con.createQuery(sql).addParameter("id",id).executeUpdate();
         }
       }
+
+      @Override
+      public boolean equals(Object otherHotel) {
+       if (!(otherHotel instanceof Hotel)) {
+         return false;
+       } else {
+         Hotel newHotel= (Hotel) otherHotel;
+         return this.getUserId() == newHotel.getUserId();
+        }
+      }
 }
