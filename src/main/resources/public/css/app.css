@@ -1,5 +1,5 @@
 #background{
-  background: url("https://s-media-cache-ak0.pinimg.com/originals/6b/ce/5f/6bce5f5b81d809cf1980b2a6a971fa83.jpg") no-repeat center center fixed;
+  background: url("../img/header.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -8,12 +8,13 @@
 
 .jumbotron{
   background-color: rgba(0, 0, 0, 0.7);
+  margin-top: 20px;
 }
 
-label{
-  color:white;
+#white-text {
+  color: white !important;
 }
 
-h1{
-  color: grey;
+.white-text {
+  color: white;
 }

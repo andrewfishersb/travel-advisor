@@ -21,7 +21,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("user", request.session().attribute("user"));
       if (User.getLogInStatus()) {
-        model.put("template", "templates/form.vtl");
+        model.put("template", "templates/index.vtl");
       } else {
         model.put("template", "templates/user-login.vtl");
       }
@@ -35,7 +35,7 @@ public class App {
       User loggedInUser = User.login(userEmail,userPassword);
       if (User.getLogInStatus()) {
         request.session().attribute("user", loggedInUser);
-        model.put("template", "templates/form.vtl");
+        model.put("template", "templates/index.vtl");
       } else {
         model.put("template", "templates/user-login.vtl");//error message or something
       }
@@ -53,7 +53,7 @@ public class App {
       newUser.save();
       // request.session().attribute("user", newUser);
       model.put("user",newUser);
-      model.put("template","templates/form.vtl");
+      model.put("template","templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

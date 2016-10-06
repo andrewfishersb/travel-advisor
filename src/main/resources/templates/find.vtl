@@ -1,123 +1,115 @@
-<h1>Flights From $originPlace to $destinationPlace </h1>
+<div class="container">
+  <h1>Flights From $originPlace to $destinationPlace </h1>
+  #if ($carriers.size() > 0)
+    #foreach ($carrier in $carriers)
+      #foreach ($flight in $flights)
+        #if($flight.getOutBoundCarrierId() == $carrier.getCarrierId())
+        <div class = "jumbotron">
+          <div class="row">
+            #if ($flight.getOutBoundDestinationId() && $flight.getInBoundDestinationId())
+              <div class="col-md-6">
+            #else
+              <div class="col-md-12">
+            #end
+              <h1 id="white-text">$carrier.getAirline()</h1>
+              <h2 class="white-text">Outbound Flight</h2>
+              <h3 class="white-text">Cost: $flight.getPrice()</h3>
+              <h2 class="white-text">Direct: $flight.getDirect()</h2>
+              <h2 class="white-text">Flight Time: $flight.getBoundQuoteDateTime()</h2>
+              <form class="buy" action="/buy" method="post">
+                <input name="cost" type="hidden" value="$flight.getPrice()" />
+                <input name="airline" type="hidden" value="$carrier.getAirline()" />
+                <input name="origin" type="hidden" value="$originPlace" />
+                <input name="destination" type="hidden" value="$destinationPlace" />
+                <input name="start" type="hidden" value="$startdate" />
+                <input name="end" type="hidden" value="$enddate" />
+                <input name="group-size" type="hidden" value="$group-size" />
+                <input name="userId" type="hidden" value="$user.getId()" />
+                <button class="btn btn-danger" type="submit" name="button">Add Flight</button>
+              </form>
+            </div>
 
-#if ($carriers.size() > 0)
-#foreach ($carrier in $carriers)
-#foreach ($flight in $flights)
-#if($flight.getOutBoundCarrierId() == $carrier.getCarrierId())
-<div class="row">
-  #if ($flight.getOutBoundDestinationId() && $flight.getInBoundDestinationId())
-  <div class="col-md-6">
-    #else
-    <div class="col-md-12">
+            #if ($flight.getOutBoundDestinationId() && $flight.getInBoundDestinationId())
+              <div class="col-md-6">
+            #else
+              <div class="col-md-12">
+            #end
+                <h2 class="white-text">Inbound Flight</h2>
+                <h3 class="white-text">Cost: $flight.getPrice()</h3>
+                <h2 class="white-text">Direct: $flight.getDirect()</h2>
+                <h2 class="white-text">Flight Time: $flight.getBoundQuoteDateTime()</h2>
+              </div>
+          </div>
+        </div>
+        #end
       #end
-      <h1>$carrier.getAirline()</h1>
-      <h2>Outbound Flight</h2>
-      <h3>Cost: $flight.getPrice()</h3>
-      <h2>Direct: $flight.getDirect()</h2>
-      <h2>Flight Time: $flight.getBoundQuoteDateTime()</h2>
-      #if ($flight.getOutDestinationDate())
-      <ul>
-        #foreach ($place in $places)
-        #if ($place.getPlaceId() == $flight.getOutBoundOriginId())
-        <li>Origin Airport: $place.getScannerCode()</li>
-        #end
-        #end
-        <li>Destination Date: $flight.getOutDestinationDate()</li>
-      </ul>
-      #end
-      <form class="buy" action="/buy" method="post">
-        <input name="cost" type="hidden" value="$flight.getPrice()" />
-        <input name="airline" type="hidden" value="$carrier.getAirline()" />
-        <input name="origin" type="hidden" value="$originPlace" />
-        <input name="destination" type="hidden" value="$destinationPlace" />
-        <input name="start" type="hidden" value="$startdate" />
-        <input name="end" type="hidden" value="$enddate" />
-        <input name="group-size" type="hidden" value="$group-size" />
-        <input name="userId" type="hidden" value="$user.getId()" />
-        <button class="btn btn-danger" type="submit" name="button">Add Flight</button>
-      </form>
-    </div>
-
-    #if ($flight.getOutBoundDestinationId() && $flight.getInBoundDestinationId())
-    <div class="col-md-6">
-      #else
-      <div class="col-md-12">
-        #end
-        <h2>Inbound Flight</h2>
-        <h3>Cost: $flight.getPrice()</h3>
-        <h2>Direct: $flight.getDirect()</h2>
-        <h2>Flight Time: $flight.getBoundQuoteDateTime()</h2>
-        #if ($flight.getInDestinationDate())
-        <ul>
-          #foreach ($place in $places)
-          #if ($place.getPlaceId() == $flight.getInBoundOriginId())
-          <li>Origin Airport: $place.getScannerCode()</li>
-          #end
-          #end
-          <li>Destination Date: $flight.getInDestinationDate()</li>
-        </ul>
-        #end
-      </div>
-    </div>
     #end
-    #end
-    #end
-    #else
-    <h2>no flight found</h2>
-
+  </div>
+#else
     <div id="background">
       <div class="container">
-
-        <h1>WELCOME $user.getName()</h1>
+        <h2>Sorry, no flights found. Try other dates or locations.</h2>
         <div class="jumbotron">
-          <form action="/find" method="get">
-            <label for="originPlace">Flying From:</label>
-            <div class="form-group">
-              <select class="form-control" name="originPlace">
-                <option value="NON">---Select Airport---</option>
-                <option value="SBA">Santa Barbara</option>
-                <option value="SBP">San Luis Obispo</option>
-                <option value="LAX">Los Angeles International</option>
-                <option value="JFK">John F. Kennedy</option>
-                <option value="DFW">Dallas/Fort Worth</option>
-                <option value="LHR">London Heathrow</option>
-                <option value="RDU">Raleigh Durham International</option>
-                <option value="PDX">Portland International</option>
-                <option value="ATL">Hartsfield–Jackson Atlanta</option>
-                <option value="SFO">San Francisco International</option>
-                <option value="MUC">Munich Airport</option>
-                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
-                <option value="PEK">Beijing Capital International</option>
-              </select>
-            </div>
-            <label for="destinationPlace">Flying to:</label>
-            <div class="form-group">
-              <select class="form-control" name="destinationPlace">
-                <option value="NON">---Select Airport---</option>
-                <option value="SBA">Santa Barbara</option>
-                <option value="SBP">San Luis Obispo</option>
-                <option value="LAX">Los Angeles International</option>
-                <option value="JFK">John F. Kennedy</option>
-                <option value="DFW">Dallas/Fort Worth</option>
-                <option value="LHR">London Heathrow</option>
-                <option value="RDU">Raleigh Durham International</option>
-                <option value="PDX">Portland International</option>
-                <option value="ATL">Hartsfield–Jackson Atlanta</option>
-                <option value="SFO">San Francisco International</option>
-                <option value="MUC">Munich Airport</option>
-                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
-                <option value="PEK">Beijing Capital International</option>
-              </select>
-            </div>
-            <input type="date" name="outboundPartialDate">
-            <input type="date" name="inboundPartialDate">
-            <div class="form-group">
-              <label for="group-size">Group Size</label>
-              <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
-            </div>
-            <button type="submit" name="button" class="btn btn-primary">Submit</button>
-          </form>
+          <div class="row">
+            <form id = "flight-form" action="/find" method="get">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="departure">Departure Date</label>
+                  <select class="form-control" name="originPlace">
+                    <option value="NON">---Select Airport---</option>
+                    <option value="SBA">Santa Barbara</option>
+                    <option value="SBP">San Luis Obispo</option>
+                    <option value="LAX">Los Angeles International</option>
+                    <option value="JFK">John F. Kennedy</option>
+                    <option value="DFW">Dallas/Fort Worth</option>
+                    <option value="LHR">London Heathrow</option>
+                    <option value="RDU">Raleigh Durham International</option>
+                    <option value="PDX">Portland International</option>
+                    <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                    <option value="SFO">San Francisco International</option>
+                    <option value="MUC">Munich Airport</option>
+                    <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                    <option value="PEK">Beijing Capital International</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="outboundPartialDate" class="white-text">Select departure date:</label>
+                  <input type="date" name="outboundPartialDate" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="destinationPlace" class="white-text">Flying to:</label>
+                  <select class="form-control" name="destinationPlace">
+                    <option value="NON">---Select Airport---</option>
+                    <option value="SBA">Santa Barbara</option>
+                    <option value="SBP">San Luis Obispo</option>
+                    <option value="LAX">Los Angeles International</option>
+                    <option value="JFK">John F. Kennedy</option>
+                    <option value="DFW">Dallas/Fort Worth</option>
+                    <option value="LHR">London Heathrow</option>
+                    <option value="RDU">Raleigh Durham International</option>
+                    <option value="PDX">Portland International</option>
+                    <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                    <option value="SFO">San Francisco International</option>
+                    <option value="MUC">Munich Airport</option>
+                    <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                    <option value="PEK">Beijing Capital International</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inboundPartialDate" class="white-text">Select return date:</label>
+                  <input type="date" name="inboundPartialDate" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="group-size" class="white-text">Group Size</label>
+                  <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
+                </div>
+                <button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  #end
+#end

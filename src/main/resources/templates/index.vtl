@@ -133,38 +133,63 @@
 			</div>
 			<div class="jumbotron">
 				<div class="row">
+          <form id = "flight-form" action="/find" method="get">
 					<div class="col-md-6">
-						<form id = "flight-form">
-							<div class="form-group">
-								<label for="departure">Departure Date</label>
-								<input id="departure" class="form-control" type="date">
-							</div>
-							<div class="form-group departure">
-							<div id="depart">
-								Departure City<br>
-							</div>
-								<input type="text" name="departure-arrival">
-							</div>
-						</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="arrival">Arrival date</label>
-									<input id="arrival" class="form-control" type="date">
-								</div>
-								<div id="arrive">
-								Arrival City<br>
-							</div>
-								<div class="form-group arrival">
-									<input type="text" name="arrival city">
-								</div>
-								<div class="form-group">
-									<input type="radio" name="gender" value="male" checked> One-way<br>
-									<input type="radio" name="gender" value="female"> Round-trip<br>
-								</div>
-									<button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
-							</div>
-
-						</form>
+            <div class="form-group">
+              <label for="departure">Departure Date</label>
+              <select class="form-control" name="originPlace">
+                <option value="NON">---Select Airport---</option>
+                <option value="SBA">Santa Barbara</option>
+                <option value="SBP">San Luis Obispo</option>
+                <option value="LAX">Los Angeles International</option>
+                <option value="JFK">John F. Kennedy</option>
+                <option value="DFW">Dallas/Fort Worth</option>
+                <option value="LHR">London Heathrow</option>
+                <option value="RDU">Raleigh Durham International</option>
+                <option value="PDX">Portland International</option>
+                <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                <option value="SFO">San Francisco International</option>
+                <option value="MUC">Munich Airport</option>
+                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                <option value="PEK">Beijing Capital International</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="outboundPartialDate">Select departure date:</label>
+              <input type="date" name="outboundPartialDate" class="form-control">
+            </div>
+          </div>
+					<div class="col-md-6">
+            <div class="form-group">
+              <label for="destinationPlace">Flying to:</label>
+              <select class="form-control" name="destinationPlace">
+                <option value="NON">---Select Airport---</option>
+                <option value="SBA">Santa Barbara</option>
+                <option value="SBP">San Luis Obispo</option>
+                <option value="LAX">Los Angeles International</option>
+                <option value="JFK">John F. Kennedy</option>
+                <option value="DFW">Dallas/Fort Worth</option>
+                <option value="LHR">London Heathrow</option>
+                <option value="RDU">Raleigh Durham International</option>
+                <option value="PDX">Portland International</option>
+                <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                <option value="SFO">San Francisco International</option>
+                <option value="MUC">Munich Airport</option>
+                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                <option value="PEK">Beijing Capital International</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inboundPartialDate">Select return date:</label>
+              <input type="date" name="inboundPartialDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="group-size">Group Size</label>
+              <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
+            </div>
+						<button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
+					</div>
+					</form>
 					</div>
 				</div>
 			</div>
