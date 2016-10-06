@@ -30,6 +30,42 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: cars; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE cars (
+    id integer NOT NULL,
+    name character varying,
+    rentaldays integer,
+    price integer,
+    userid integer
+);
+
+
+ALTER TABLE cars OWNER TO "Guest";
+
+--
+-- Name: cars_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE cars_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cars_id_seq OWNER TO "Guest";
+
+--
+-- Name: cars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE cars_id_seq OWNED BY cars.id;
+
+
+--
 -- Name: flights; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
@@ -76,11 +112,9 @@ ALTER SEQUENCE flights_id_seq OWNED BY flights.id;
 CREATE TABLE hotels (
     id integer NOT NULL,
     name character varying,
-    location character varying,
-    startdate character varying,
-    enddate character varying,
+    roomsbooked integer,
+    duration integer,
     price integer,
-    groupsize integer,
     userid integer
 );
 
@@ -183,6 +217,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
+ALTER TABLE ONLY cars ALTER COLUMN id SET DEFAULT nextval('cars_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
 ALTER TABLE ONLY flights ALTER COLUMN id SET DEFAULT nextval('flights_id_seq'::regclass);
 
 
@@ -208,10 +249,29 @@ ALTER TABLE ONLY users_booking ALTER COLUMN id SET DEFAULT nextval('users_bookin
 
 
 --
+-- Data for Name: cars; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY cars (id, name, rentaldays, price, userid) FROM stdin;
+7	Bike	2	12	12
+\.
+
+
+--
+-- Name: cars_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('cars_id_seq', 7, true);
+
+
+--
 -- Data for Name: flights; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, endlocation, carrier) FROM stdin;
+91	2016-10-10	2016-10-14	574	2	7	LAX	JFK	Sun Country Airlines
+98	2016-10-10	2016-10-17	493	3	12	LAX	JFK	Sun Country Airlines
+99	2016-10-10	2016-10-17	493	2	8	LAX	JFK	Sun Country Airlines
 \.
 
 
@@ -219,14 +279,17 @@ COPY flights (id, startdate, enddate, price, groupsize, userid, startlocation, e
 -- Name: flights_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('flights_id_seq', 90, true);
+SELECT pg_catalog.setval('flights_id_seq', 99, true);
 
 
 --
 -- Data for Name: hotels; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY hotels (id, name, location, startdate, enddate, price, groupsize, userid) FROM stdin;
+COPY hotels (id, name, roomsbooked, duration, price, userid) FROM stdin;
+7	Best Western	3	3	143	10
+8	Best Western	1	3	143	11
+9	Motel 6	1	3	76	12
 \.
 
 
@@ -234,7 +297,7 @@ COPY hotels (id, name, location, startdate, enddate, price, groupsize, userid) F
 -- Name: hotels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('hotels_id_seq', 1, false);
+SELECT pg_catalog.setval('hotels_id_seq', 9, true);
 
 
 --
@@ -242,6 +305,12 @@ SELECT pg_catalog.setval('hotels_id_seq', 1, false);
 --
 
 COPY users (id, name, email, age, password) FROM stdin;
+7	Andrew	andrew@andrew.com	28	password
+8	1	1	1	1
+9	Andrew Fisher	andrewF@andrew.com	25	1234
+10	2	2	2	2
+11	1	Alex	1	pass
+12	3	3	3	3
 \.
 
 
@@ -264,7 +333,15 @@ SELECT pg_catalog.setval('users_booking_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('users_id_seq', 6, true);
+SELECT pg_catalog.setval('users_id_seq', 12, true);
+
+
+--
+-- Name: cars_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY cars
+    ADD CONSTRAINT cars_pkey PRIMARY KEY (id);
 
 
 --
