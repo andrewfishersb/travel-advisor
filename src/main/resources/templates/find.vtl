@@ -1,4 +1,5 @@
 #if ($carriers.size() > 0)
+<div id="background">
   <div class="container">
     <h1>Flights From $originPlace to $destinationPlace </h1>
     #foreach ($carrier in $carriers)
@@ -44,6 +45,7 @@
       #end
     #end
   </div>
+</div>
 #else
 <div id="background">
   <div class="container text-center">
