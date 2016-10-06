@@ -1,0 +1,391 @@
+ 	<div class="preloader">
+		<img src="img/loader.gif" alt="Preloader image">
+	</div>
+	<nav class="navbar">
+		<div class="container">
+
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right main-nav">
+					<li><a href="#intro">Welcome!</a></li>
+					<li><a href="#book-a-flight">book a flight</a></li>
+					<li><a href="#book-a-hotel">book a hotel</a></li>
+					<li><a href="#book-a-car">book a car rental</a></li>
+					<li><a href="#team">Our Team</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<header id="intro">
+		<div class="container">
+			<div class="table">
+				<div class="header-text">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<h3 class="light white">Find a flight, cheaper than others!</h3>
+							<h1 class="white typed">Point A to Point B...done</h1>
+							<span class="typed-cursor">|</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<section>
+		<div class="cut cut-top"></div>
+		<div class="container">
+			<div class="row intro-tables">
+				<div class="col-md-6">
+					<div class="intro-table intro-table-first">
+						<div class="owl-carousel owl-schedule top">
+							<div class="item">
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">Why us?</h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white"></h5>
+									</div>
+								</div>
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">Why do this?</h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white">Epicodus student Project</h5>
+									</div>
+								</div>
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">Travelling done simply</h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white">Simply simple</h5>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">Why we are different?</h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white">Our business model allows us to pass the savings on to you!</h5>
+									</div>
+								</div>
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">Frugal flights is based on the belief that everyone should be able to travel </h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white">And travel a LOT!</h5>
+									</div>
+								</div>
+								<div class="schedule-row row">
+									<div class="col-xs-6">
+										<h5 class="regular white">We never have a robot answer your call, we want you to talk to a person</h5>
+									</div>
+									<div class="col-xs-6 text-right">
+										<h5 class="white">Everytime</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="intro-table intro-table-third">
+						<h5 class="white heading">Happy Clients</h5>
+						<div class="owl-testimonials bottom">
+							<div class="item">
+								<h4 class="white heading content">"Frugal flights allows me to take family vacations, for the cost of just my wife and I going with any other service"</h4>
+								<h5 class="white heading light author">-Elon Musk</h5>
+							</div>
+							<div class="item">
+								<h4 class="white heading content">"I think that Frugal flights should be a household name!</h4>
+								<h5 class="white heading light author">-Albert Einstein</h5>
+							</div>
+							<div class="item">
+								<h4 class="white heading content">"Incredible service, they have my lifetime loyalty"</h4>
+								<h5 class="white heading light author">-Steve jobs</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="book-a-flight" class="section section-padded">
+		<div class="container">
+			<div class="row text-center title">
+				<h2 class="subtitle">Book A Flight</h2>
+				<h4 class="subtitle">find the lowest prices. lower than your standards in college.</h4>
+			</div>
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-md-6">
+						<form id = "flight-form">
+							<div class="form-group">
+								<label for="departure">Departure Date</label>
+								<input id="departure" class="form-control" type="date">
+							</div>
+							<div class="form-group departure">
+							<div id="depart">
+								Departure City<br>
+							</div>
+								<input type="text" name="departure-arrival">
+							</div>
+						</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="arrival">Arrival date</label>
+									<input id="arrival" class="form-control" type="date">
+								</div>
+								<div id="arrive">
+								Arrival City<br>
+							</div>
+								<div class="form-group arrival">
+									<input type="text" name="arrival city">
+								</div>
+								<div class="form-group">
+									<input type="radio" name="gender" value="male" checked> One-way<br>
+									<input type="radio" name="gender" value="female"> Round-trip<br>
+								</div>
+									<button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cut cut-bottom"></div>
+	</section>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<section id="book-a-hotel" class="section section-padded">
+		<div class="container">
+			<div class="row text-center title">
+				<h2 class="subtitle">Book A Hotel</h2>
+				<h4 class="subtitle">Don't stay in a hotel, stay in your hotel</h4>
+			</div>
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-md-6">
+						<form id = "hotel">
+							<p>
+								where are you staying?
+							</p>
+							<select class="form-control" id="cities">
+							  <option>Chicago</option>
+							  <option>Portland</option>
+							  <option>Los Angelas</option>
+							  <option>New York</option>
+								<option>Miami</option>
+							</select>
+							</div>
+							<div class="col-md-6">
+								<div id="arrive">
+								number of nights you want to stay<br>
+							</div>
+								<div class="form-group arrival">
+									<input type="number" name="arrival city">
+								</div>
+								<div id="numberrooms">
+								number of rooms you need, 2 people to a room<br>
+							</div>
+								<div class="form-group arrival">
+									<input type="number" name="arrival city">
+								</div>
+								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book room</button>
+							</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cut cut-bottom"></div>
+	</section>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<section id="book-a-car" class="section section-padded">
+		<div class="container">
+			<div class="row text-center title">
+				<h2 class="subtitle">Book A Car</h2>
+				<h4 class="subtitle">On a Budget, drive luxury! </h4>
+			</div>
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-md-6">
+						<form id = "hotel">
+							<p>
+								What kind of car do you want
+							</p>
+							<select class="form-control" id="cars">
+							  <option>pickup truck</option>
+							  <option>SUV</option>
+							  <option>sedan</option>
+								<option>Tesla</option>
+							</select>
+							</div>
+							<div class="col-md-6">
+								<div id="arrive">
+								How many days do you need the car<br>
+							</div>
+								<div class="form-group arrival">
+									<input type="number" name="car-time">
+								</div>
+								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book car</button>
+							</div>
+
+							</div>
+						</form>
+					</div>
+			</div>
+		</div>
+		<div class="cut cut-bottom"></div>
+	</section>
+	<section id="team" class="section gray-bg">
+		<div class="container">
+			<div class="row title text-center">
+				<h2 class="margin-top">Our Team</h2>
+				<h4 class="light muted">We are a dream team of Fun!</h4>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="team text-center">
+						<div class="cover" style="background:url('img/1.jpg'); background-size:cover;">
+							<div class="overlay text-center">
+								<h3 class="white">$150/hr</h3>
+								<h5 class="light light-white">Fullstack java, javascript, Amazon co-founder, Twitter co-founder </h5>
+							</div>
+						</div>
+						<img class = "circlepic" src="img/andrew3.jpg" alt="Team Image" class="avatar">
+						<div class="title">
+							<h4>Andrew Merrill</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="team text-center">
+						<div class="cover" style="background:url('img/123.jpg'); background-size:cover;">
+							<div class="overlay text-center">
+								<h3 class="white">$100/hr</h3>
+								<h5 class="light light-white">Fullstack ruby, Paypal co-founder</h5>
+							</div>
+						</div>
+						<img class = "circlepic" src="img/adam.jpeg" alt="Team Image" class="avatar">
+						<div class="title">
+							<h4>Adam Gorbahn</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="team text-center">
+						<div class="cover" style="background:url('img/12.png'); background-size:cover;">
+							<div class="overlay text-center">
+								<h3 class="white">$130/hr </h3>
+								<h5 class="light light-white">senior Fullstack developer, early Google</h5>
+							</div>
+						</div>
+						<img class = "circlepic" src="img/andrew1.jpg" alt="Team Image" class="avatar">
+						<div class="title">
+							<h4>Andrew Fisher</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content modal-popup">
+				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+				<h3 class="white">Sign Up</h3>
+				<form action="" class="popup-form">
+					<input type="text" class="form-control form-white" placeholder="Full Name">
+					<input type="text" class="form-control form-white" placeholder="Email Address">
+					<div class="dropdown">
+						<button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Pricing Plan
+						</button>
+						<ul class="dropdown-menu animated fadeIn" role="menu" aria-labelledby="dLabel">
+							<li class="animated lightSpeedIn"><a href="#">1 month membership ($150)</a></li>
+							<li class="animated lightSpeedIn"><a href="#">3 month membership ($350)</a></li>
+							<li class="animated lightSpeedIn"><a href="#">1 year membership ($1000)</a></li>
+							<li class="animated lightSpeedIn"><a href="#">Free trial class</a></li>
+						</ul>
+					</div>
+					<div class="checkbox-holder text-left">
+						<div class="checkbox">
+							<input type="checkbox" value="None" id="squaredOne" name="check" />
+							<label for="squaredOne"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-submit">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 text-center-mobile">
+					<h3 class="white">Reserve a Free Trial Class!</h3>
+					<h5 class="light regular light-white">Shape your body and improve your health.</h5>
+					<a href="#" class="btn btn-blue ripple trial-button">Start Free Trial</a>
+				</div>
+				<div class="col-sm-6 text-center-mobile">
+					<h3 class="white">Opening Hours <span class="open-blink"></span></h3>
+					<div class="row opening-hours">
+						<div class="col-sm-6 text-center-mobile">
+							<h5 class="light-white light">Mon - Fri</h5>
+							<h3 class="regular white">9:00 - 22:00</h3>
+						</div>
+						<div class="col-sm-6 text-center-mobile">
+							<h5 class="light-white light">Sat - Sun</h5>
+							<h3 class="regular white">10:00 - 18:00</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row bottom-footer text-center-mobile">
+				<div class="col-sm-8">
+					<p>&copy; 2016 All Rights Reserved PDX transforming duckies!
+				</div>
+				<div class="col-sm-4 text-right text-center-mobile">
+					<ul class="social-footer">
+						<li><a href="http://www.facebook.com/pages/Codrops/159107397912"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="http://www.twitter.com/codrops"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="https://plus.google.com/101095823814290637419"><i class="fa fa-google-plus"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Holder for mobile navigation -->
+	<div class="mobile-nav">
+		<ul>
+		</ul>
+		<a href="#" class="close-link"><i class="arrow_up"></i></a>
+	</div>

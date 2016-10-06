@@ -94,14 +94,6 @@ public class App {
       return new ModelAndView(model, layout);
     },new VelocityTemplateEngine());
 
-
-
-    get("/itinerary/flights/itinerary/flights/LAX/JFK/2016-10-04/2016-10-05", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      model.put("template", "templates/flight-results.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
     get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
       String originPlace = request.queryParams("originPlace");
@@ -152,27 +144,6 @@ public class App {
           for (int i=0; i < quotes.size();i++) {
             JSONObject quotesData = (JSONObject) quotes.get(i);
 
-            // JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
-            // JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
-            //
-            // //refractor if want one way flights
-            // if (outBound != null && inBound != null) {
-            //   Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
-            //
-            //   // outBound
-            //   newFlight.setOutBoundDestinationInformation(Integer.parseInt(outBound.get("OriginId").toString()), Integer.parseInt(outBound.get("DestinationId").toString()), outBound.get("DepartureDate").toString());
-            //   JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
-            //   newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
-            //
-            //   // inBound
-            //   newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
-            //   JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
-            //   newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
-            //
-            //   flightsList.add(newFlight);
-            // }
-
-
             Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
 
             JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
@@ -183,8 +154,6 @@ public class App {
               JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
               newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
             }
-
-
 
             if (inBound != null) {
               newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
@@ -213,122 +182,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/find2",  (request, response) -> {
-      Map <String, Object> model = new HashMap <String, Object>();
-      // String market = request.queryParams("market");
-      // String currency = request.queryParams("currency");
-      // String locale = request.queryParams("locale");
-      String originPlace = request.queryParams("originPlace");
-      String destinationPlace = request.queryParams("destinationPlace");
-      String outboundPartialDate = request.queryParams("outboundPartialDate");
-      String inboundPartialDate = request.queryParams("inboundPartialDate");
-      int groupSize = Integer.parseInt(request.queryParams("group-size"));
-      String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/US/USD/en-us/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
-
-      String output = getData(url);
-
-      JSONParser parser = new JSONParser();
-
-      try{
-         Object obj = parser.parse(output);
-
-          JSONObject jsonObject = (JSONObject) obj;
-
-          JSONArray places = (JSONArray) jsonObject.get("Places");
-
-          ArrayList<Place> placesList = new ArrayList<Place>();
-
-          for (int i = 0; i<places.size(); i++) {
-            JSONObject data = (JSONObject) places.get(i);
-            Place newPlace = new Place(Integer.parseInt(data.get("PlaceId").toString()), data.get("SkyscannerCode").toString());
-            placesList.add(newPlace);
-          }
-
-          JSONArray carriers = (JSONArray) jsonObject.get("Carriers");
-
-          ArrayList<Carrier> carriersList = new ArrayList<Carrier>();
-
-          for (int i=0; i<carriers.size() ; i++ ) {
-            JSONObject carrierData = (JSONObject) carriers.get(i);
-            Carrier newCarrier = new Carrier(Integer.parseInt(carrierData.get("CarrierId").toString()),carrierData.get("Name").toString());
-            carriersList.add(newCarrier);
-          }
-
-          JSONArray quotes = (JSONArray) jsonObject.get("Quotes");
-
-          ArrayList<Flights> flightsList = new ArrayList<Flights>();
-
-          for (int i=0; i < quotes.size();i++) {
-            JSONObject quotesData = (JSONObject) quotes.get(i);
-
-            // JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
-            // JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
-            //
-            // //refractor if want one way flights
-            // if (outBound != null && inBound != null) {
-            //   Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
-            //
-            //   // outBound
-            //   newFlight.setOutBoundDestinationInformation(Integer.parseInt(outBound.get("OriginId").toString()), Integer.parseInt(outBound.get("DestinationId").toString()), outBound.get("DepartureDate").toString());
-            //   JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
-            //   newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
-            //
-            //   // inBound
-            //   newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
-            //   JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
-            //   newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
-            //
-            //   flightsList.add(newFlight);
-            // }
-
-
-            Flights newFlight = new Flights (Double.parseDouble(quotesData.get("MinPrice").toString()), Boolean.valueOf(quotesData.get("Direct").toString()), quotesData.get("QuoteDateTime").toString());
-
-            JSONObject outBound = (JSONObject) quotesData.get("OutboundLeg");
-            JSONObject inBound = (JSONObject) quotesData.get("InboundLeg");
-
-            if (outBound != null) {
-              newFlight.setOutBoundDestinationInformation(Integer.parseInt(outBound.get("OriginId").toString()), Integer.parseInt(outBound.get("DestinationId").toString()), outBound.get("DepartureDate").toString());
-              JSONArray outBoundCarrierId = (JSONArray) outBound.get("CarrierIds");
-              newFlight.setOutBoundCarrierId(Integer.parseInt(outBoundCarrierId.get(0).toString()));
-
-              // if (inBound != null) {
-              //   newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
-              //   JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
-              //   newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
-              // }
-              // flightsList.add(newFlight);
-
-            }
-
-
-
-            if (inBound != null) {
-              newFlight.setInBoundDestinationInformation(Integer.parseInt(inBound.get("OriginId").toString()), Integer.parseInt(inBound.get("DestinationId").toString()), inBound.get("DepartureDate").toString());
-              JSONArray inBoundCarrierId = (JSONArray) inBound.get("CarrierIds");
-              newFlight.setInBoundCarrierId(Integer.parseInt(inBoundCarrierId.get(0).toString()));
-            }
-
-            flightsList.add(newFlight);
-          }
-
-          model.put("flights", flightsList);
-          model.put("places", placesList);
-          model.put("carriers", carriersList);
-
-      }catch(ParseException pe){
-
-         System.out.println("position: " + pe.getPosition());
-         System.out.println(pe);
-      }
-
-      model.put("template", "templates/find2.vtl");
-      model.put("user", request.session().attribute("user"));
-      //model.put("title", "Adam Hair Salon");
-      //model.put("header", header);
-      //model.put("css", "");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
   }
 
   public static String getData(String urlLink) {
@@ -368,9 +221,6 @@ public class App {
        return json;
   }
 }
-
-
-
 
 //  post("", (request, response) -> {
 //        Map<String, Object> model = new HashMap<String, Object>();
