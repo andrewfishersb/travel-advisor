@@ -52,4 +52,4 @@ Plain English specs:
 
 
 
-User can enter name, email, password to create account or use login info too gain access to site. can pick destination starting place and destination, date of departure, and return date. All data is current from API. Pick a car to rent, motel accomodations.
+User can enter name, email, password to create account or use login info too gain access to site. can pick destination starting place and destination, date of departure, and return date. All data is current from API. Pick a car to rent, motel accomodations. Info is saved in database for future use. 
