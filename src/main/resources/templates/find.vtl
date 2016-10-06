@@ -1,6 +1,6 @@
-<div class="container">
-  <h1>Flights From $originPlace to $destinationPlace </h1>
-  #if ($carriers.size() > 0)
+#if ($carriers.size() > 0)
+  <div class="container">
+    <h1>Flights From $originPlace to $destinationPlace </h1>
     #foreach ($carrier in $carriers)
       #foreach ($flight in $flights)
         #if($flight.getOutBoundCarrierId() == $carrier.getCarrierId())
@@ -45,7 +45,17 @@
     #end
   </div>
 #else
-    <div id="background">
+<div id="background">
+  <div class="container text-center">
+    <h1>Flights From $originPlace to $destinationPlace </h1>
+  <div class="col-md-4 col-md-offset-4 text-center jumbotron">
+    <h1 class="white-text">Oops!</h1>
+    <h4 class="white-text">We ran into an issue.</h4>
+    <h4 class="white-text">We couldn't find any options for those dates and locations.</h4>
+    <a href="/" class="btn btn-primary">Back home</a>
+  </div>
+</div>
+    <!-- <div id="background">
       <div class="container">
         <h2>Sorry, no flights found. Try other dates or locations.</h2>
         <div class="jumbotron">
@@ -110,5 +120,5 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 #end

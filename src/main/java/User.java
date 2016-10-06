@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.security.InvalidParameterException;
 
 public class User {
   private String name;
@@ -44,7 +45,7 @@ public class User {
       String sql = "SELECT * FROM users WHERE email =:email AND password =:password";
       User user = con.createQuery(sql).addParameter("email", email).addParameter("password", password).executeAndFetchFirst(User.class);
       if(user ==null){
-         throw new RuntimeException("Invalid username and/or password");
+         throw new InvalidParameterException("Invalid username and/or password");
       }
         loggedIn=true;
         return user;

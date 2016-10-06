@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
+import java.security.InvalidParameterException;
 
 public class App {
   public static void main(String[] args) {
@@ -36,14 +37,26 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       String userEmail = request.queryParams("user-email");
       String userPassword = request.queryParams("user-password");
-      User loggedInUser = User.login(userEmail,userPassword);
-      if (User.getLogInStatus()) {
-        request.session().attribute("user", loggedInUser);
-        model.put("template", "templates/index.vtl");
-      } else {
-        model.put("template", "templates/user-login.vtl");//error message or something
+      try {
+        User loggedInUser = User.login(userEmail,userPassword);
+        if (User.getLogInStatus()) {
+          request.session().attribute("user", loggedInUser);
+          model.put("template", "templates/index.vtl");
+        } else {
+          model.put("template", "templates/user-login.vtl");//error message or something
+        }
+      } catch (InvalidParameterException ipe) {
+        request.session().attribute("message", ipe.getMessage());
+        response.redirect("/error");
       }
       response.redirect("/");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/error", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("message", request.session().attribute("message"));
+      model.put("template", "templates/error.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
