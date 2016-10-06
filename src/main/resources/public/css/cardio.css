@@ -1113,14 +1113,20 @@ footer .social-footer li:hover a {
 #book-a-flight {
 		background-image: url('../img/zion.jpg');
 		color: white;
+		background-repeat: no-repeat;
+		  background-size: cover;
 	}
 #book-a-hotel {
 		background-image: url('../img/kalilani.jpg');
 		color: white;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 #book-a-car {
 		background-image: url('../img/tesla.jpg');
 		color: white;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 	.jumbotron {
 		background-color: rgba(2, 2, 2, .8);
@@ -1142,5 +1148,3 @@ footer .social-footer li:hover a {
 		max-height: 150px;
 		border-radius: 100px;
 	}
-}
-}
