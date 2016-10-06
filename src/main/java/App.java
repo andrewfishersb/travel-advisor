@@ -55,7 +55,8 @@ public class App {
       int userAge = Integer.parseInt(request.queryParams("user-age"));
       User newUser = new User(userName, userPassword, userEmail, userAge);
       newUser.save();
-      // request.session().attribute("user", newUser);
+      newUser.login(userEmail, userPassword);
+      request.session().attribute("user", newUser);
       model.put("user",newUser);
       model.put("template","templates/form.vtl");
       return new ModelAndView(model, layout);

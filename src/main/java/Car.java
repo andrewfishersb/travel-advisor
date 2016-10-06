@@ -26,6 +26,9 @@ public class Car extends Booking{
   public int getRentalDays(){
     return rentalDays;
   }
+  public double getPrice(){
+    return price;
+  }
 
   public static List<Car> all(){
     try(Connection con = DB.sql2o.open()){

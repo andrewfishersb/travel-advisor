@@ -105,10 +105,11 @@
       </form>
     </div>
   #end
-
+<!-- itinerary -->
   #if ($flight && $hotel && $car)
     <div class="jumbotron">
-      <h1>Flight Information</h1>
+      <h1>$user.getName()'s Itinerary</h1>
+      <h2>Flight Information</h2>
       <ul>
         <li>Carrier: $flight.getCarrier()</li>
         <li>Start Location: $flight.getStartLocation()</li>
@@ -116,17 +117,30 @@
         <li>Start Date: $flight.getStartDate()</li>
         <li>End Date: $flight.getEndDate()</li>
         <li>Group Size: $flight.getGroupSize()</li>
-        <li>Cost: $flight.getCost()</li>
-        #set($totalFight = $flight.getCost() * $flight.getGroupSize())
-        <li>Total Cost: $totalFight</li>
+        <li>Price Per Person: $flight.getPrice()</li>
+        #set($totalFlight = $flight.getPrice() * $flight.getGroupSize())
+        <li>Total Flight Cost: $totalFlight</li>
       </ul>
-      <h1>Hotel Booking</h1>
+      <h2>Hotel Booking</h2>
       <ul>
         <li>Hotel: $hotel.getName()</li>
         <li>Nights Booked: $hotel.getDuration()</li>
-        <li></li>
-        <li></li>
+        <li>Rooms Booked: $hotel.getRoomsBooked()</li>
+        <li>Price Per Night: $hotel.getPrice()</li>
+        #set($totalHotel = $hotel.getPrice() * $hotel.getRoomsBooked())
+        <li>Total Hotel Cost: $totalHotel</li>
       </ul>
+      <h2>Car Rental Information</h2>
+      <ul>
+        <li>Company: Hertz</li>
+        <li>Vehicle Type: $car.getName()</li>
+        <li>Days Rented: $car.getRentalDays()</li>
+        <li>Price Per Day: $car.getPrice()</li>
+        #set($totalCar = $car.getPrice() * $car.getRentalDays())
+        <li>Total Rental Cost: $totalCar</li>
+      </ul>
+      #set($overallCost = $totalFlight + $totalHotel + $totalCar)
+      <h4>Overall Cost = $overallCost</h4>
     </div>
   #end
 

@@ -48,7 +48,7 @@ public class Flight extends Booking{
     return endDate;
   }
 
-  public double getCost() {
+  public double getPrice() {
     return price;
   }
 

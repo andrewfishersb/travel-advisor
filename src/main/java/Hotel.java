@@ -27,6 +27,10 @@ public class Hotel extends Booking {
     return duration;
   }
 
+  public double getPrice(){
+    return price;
+  }
+
   public static List<Hotel> all(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM hotels";
