@@ -58,7 +58,7 @@ public class App {
       newUser.login(userEmail, userPassword);
       request.session().attribute("user", newUser);
       model.put("user",newUser);
-      model.put("template","templates/index.vtl");
+      response.redirect("/");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

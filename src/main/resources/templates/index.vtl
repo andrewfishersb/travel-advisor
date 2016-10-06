@@ -1,4 +1,4 @@
- 	<div class="preloader">
+<div class="preloader">
 		<img src="img/loader.gif" alt="Preloader image">
 	</div>
 	<nav class="navbar">
@@ -16,10 +16,22 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right main-nav">
 					<li><a href="#intro">Welcome!</a></li>
-					<li><a href="#book-a-flight">book a flight</a></li>
-					<li><a href="#book-a-hotel">book a hotel</a></li>
-					<li><a href="#book-a-car">book a car rental</a></li>
+          #if (!$flight)
+					     <li><a href="#book-a-flight">book a flight</a></li>
+          #end
+          #if (!$hotel)
+					     <li><a href="#book-a-hotel">book a hotel</a></li>
+          #end
+          #if (!$car)
+					     <li><a href="#book-a-car">book a car rental</a></li>
+          #end
+          #if($flight || $hotel || $car)
+              <li><a href="#itinerary">Itinerary</a></li>
+          #end
 					<li><a href="#team">Our Team</a></li>
+          <li><form action="/logout" method="post">
+            <button type="submit" id="logout" class="btn btn-info"name="button">Log-Out</button>
+          </form></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -125,169 +137,235 @@
 			</div>
 		</div>
 	</section>
-	<section id="book-a-flight" class="section section-padded">
-		<div class="container">
-			<div class="row text-center title">
-				<h2 class="subtitle">Book A Flight</h2>
-				<h4 class="subtitle">find the lowest prices. lower than your standards in college.</h4>
-			</div>
-			<div class="jumbotron">
-				<div class="row">
-          <form id = "flight-form" action="/find" method="get">
-					<div class="col-md-6">
-            <div class="form-group">
-              <label for="departure">Departure Date</label>
-              <select class="form-control" name="originPlace">
-                <option value="NON">---Select Airport---</option>
-                <option value="SBA">Santa Barbara</option>
-                <option value="SBP">San Luis Obispo</option>
-                <option value="LAX">Los Angeles International</option>
-                <option value="JFK">John F. Kennedy</option>
-                <option value="DFW">Dallas/Fort Worth</option>
-                <option value="LHR">London Heathrow</option>
-                <option value="RDU">Raleigh Durham International</option>
-                <option value="PDX">Portland International</option>
-                <option value="ATL">Hartsfield–Jackson Atlanta</option>
-                <option value="SFO">San Francisco International</option>
-                <option value="MUC">Munich Airport</option>
-                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
-                <option value="PEK">Beijing Capital International</option>
-              </select>
+  #if (!$flight)
+  	<section id="book-a-flight" class="section section-padded">
+  		<div class="container">
+  			<div class="row text-center title">
+  				<h2 class="subtitle">Book A Flight</h2>
+  				<h4 class="subtitle">find the lowest prices. lower than your standards in college.</h4>
+  			</div>
+  			<div class="jumbotron">
+  				<div class="row">
+            <form id = "flight-form" action="/find" method="get">
+  					<div class="col-md-6">
+              <div class="form-group">
+                <label for="departure">Departure Date</label>
+                <select class="form-control" name="originPlace">
+                  <option value="NON">---Select Airport---</option>
+                  <option value="SBA">Santa Barbara</option>
+                  <option value="SBP">San Luis Obispo</option>
+                  <option value="LAX">Los Angeles International</option>
+                  <option value="JFK">John F. Kennedy</option>
+                  <option value="DFW">Dallas/Fort Worth</option>
+                  <option value="LHR">London Heathrow</option>
+                  <option value="RDU">Raleigh Durham International</option>
+                  <option value="PDX">Portland International</option>
+                  <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                  <option value="SFO">San Francisco International</option>
+                  <option value="MUC">Munich Airport</option>
+                  <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                  <option value="PEK">Beijing Capital International</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="outboundPartialDate">Select departure date:</label>
+                <input type="date" name="outboundPartialDate" class="form-control">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="outboundPartialDate">Select departure date:</label>
-              <input type="date" name="outboundPartialDate" class="form-control">
-            </div>
-          </div>
-					<div class="col-md-6">
-            <div class="form-group">
-              <label for="destinationPlace">Flying to:</label>
-              <select class="form-control" name="destinationPlace">
-                <option value="NON">---Select Airport---</option>
-                <option value="SBA">Santa Barbara</option>
-                <option value="SBP">San Luis Obispo</option>
-                <option value="LAX">Los Angeles International</option>
-                <option value="JFK">John F. Kennedy</option>
-                <option value="DFW">Dallas/Fort Worth</option>
-                <option value="LHR">London Heathrow</option>
-                <option value="RDU">Raleigh Durham International</option>
-                <option value="PDX">Portland International</option>
-                <option value="ATL">Hartsfield–Jackson Atlanta</option>
-                <option value="SFO">San Francisco International</option>
-                <option value="MUC">Munich Airport</option>
-                <option value="FNJ">Pyongyang Sunan (North Korea)</option>
-                <option value="PEK">Beijing Capital International</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="inboundPartialDate">Select return date:</label>
-              <input type="date" name="inboundPartialDate" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="group-size">Group Size</label>
-              <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
-            </div>
-						<button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
-					</div>
-					</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="cut cut-bottom"></div>
-	</section>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<section id="book-a-hotel" class="section section-padded">
-		<div class="container">
-			<div class="row text-center title">
-				<h2 class="subtitle">Book A Hotel</h2>
-				<h4 class="subtitle">Don't stay in a hotel, stay in your hotel</h4>
-			</div>
-			<div class="jumbotron">
-				<div class="row">
-					<div class="col-md-4">
-						<form id = "hotel">
-							<h3 class = "white-text">
-								where are you staying?
-							</h3><br>
-							<select class="form-control" id="cities">
-							  <option>Chicago</option>
-							  <option>Portland</option>
-							  <option>Los Angelas</option>
-							  <option>New York</option>
-								<option>Miami</option>
-							</select><br>
-								<div id="arrive">
-								number of nights you want to stay<br>
-							</div>
-								<div class="form-group arrival">
-									<input type="number" name="arrival city">
-								</div>
-								<div id="numberrooms">
-								number of rooms you need, 2 people to a room<br>
-							</div>
-								<div class="form-group arrival">
-									<input type="number" name="arrival city">
-								</div>
-								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book room</button>
-							</div>
-		          </div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="cut cut-bottom"></div>
-	</section>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<section id="book-a-car" class="section section-padded">
-		<div class="container">
-			<div class="row text-center title">
-				<h2 class="subtitle">Book A Car</h2>
-				<h4 class="subtitle">On a Budget, drive luxury! </h4>
-			</div>
-			<div class="jumbotron">
-				<div class="row">
-					<div class="col-md-6">
-						<form id = "hotel">
-							<p>
-								What kind of car do you want
-							</p>
-							<select class="form-control" id="cars">
-							  <option>pickup truck</option>
-							  <option>SUV</option>
-							  <option>sedan</option>
-								<option>Tesla</option>
-							</select>
-							</div>
-							<div class="col-md-6">
-								<div id="arrive">
-								How many days do you need the car<br>
-							</div>
-								<div class="form-group arrival">
-									<input type="number" name="car-time">
-								</div>
-								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book car</button>
-							</div>
+  					<div class="col-md-6">
+              <div class="form-group">
+                <label for="destinationPlace">Flying to:</label>
+                <select class="form-control" name="destinationPlace">
+                  <option value="NON">---Select Airport---</option>
+                  <option value="SBA">Santa Barbara</option>
+                  <option value="SBP">San Luis Obispo</option>
+                  <option value="LAX">Los Angeles International</option>
+                  <option value="JFK">John F. Kennedy</option>
+                  <option value="DFW">Dallas/Fort Worth</option>
+                  <option value="LHR">London Heathrow</option>
+                  <option value="RDU">Raleigh Durham International</option>
+                  <option value="PDX">Portland International</option>
+                  <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                  <option value="SFO">San Francisco International</option>
+                  <option value="MUC">Munich Airport</option>
+                  <option value="FNJ">Pyongyang Sunan (North Korea)</option>
+                  <option value="PEK">Beijing Capital International</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inboundPartialDate">Select return date:</label>
+                <input type="date" name="inboundPartialDate" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="group-size">Group Size</label>
+                <input type="number" max="8" min="1" name="group-size" value="" class="form-control">
+              </div>
+  						<button id = "flight-button" type="submit" id="submit"class="btn btn-info">Find flights!</button>
+  					</div>
+  					</form>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="cut cut-bottom"></div>
+  	</section>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  #end
+  #if (!$hotel)
+  	<section id="book-a-hotel" class="section section-padded">
+  		<div class="container">
+  			<div class="row text-center title">
+  				<h2 class="subtitle">Book A Hotel</h2>
+  				<h4 class="subtitle">Don't stay in a hotel, stay in your hotel</h4>
+  			</div>
+  			<div class="jumbotron">
+  				<div class="row">
+  					<div class="col-md-6">
+  						<form id = "hotel" action="/hotel" method="post">
+  							<p>
+  								where are you staying?
+  							</p>
+  							<select class="form-control" id="cities" name="hotel">
+                  <option value="Motel 6">Motel 6 - $76.99</option>
+                  <option value="La Quinta Inn and Suites">La Quinta Inn and Suites - $114.99</option>
+                  <option value="Best Western">Best Western - $143.99</option>
+                  <option value="Marriot">Marriot - $195.99</option>
+                  <option value="The Ritz-Carlton">The Ritz-Carlton - $734.99</option>
+  							</select>
+  							</div>
+  							<div class="col-md-6">
+  								<div id="arrive">
+  								number of nights you want to stay<br>
+  							</div>
+  								<div class="form-group arrival">
+  									<input type="number" class="form-control" max="14" min="1" name="night" value="">
+  								</div>
+  								<div id="numberrooms">
+  								number of rooms you need, 2 people to a room<br>
+  							</div>
+  								<div class="form-group arrival">
+  									<input type="number" class="form-control" max="4" min="1" name="room" value="">
+  								</div>
+                  <input type="hidden" name="userId" value="$user.getId()">
+  								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book room</button>
+  							</div>
 
-							</div>
-						</form>
-					</div>
-			</div>
-		</div>
-		<div class="cut cut-bottom"></div>
-	</section>
+  							</div>
+  						</form>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="cut cut-bottom"></div>
+  	</section>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  	<br>
+  #end
+  #if (!$car)
+  	<section id="book-a-car" class="section section-padded">
+  		<div class="container">
+  			<div class="row text-center title">
+  				<h2 class="subtitle">Book A Car</h2>
+  				<h4 class="subtitle">On a Budget, drive luxury! </h4>
+  			</div>
+  			<div class="jumbotron">
+  				<div class="row">
+  					<div class="col-md-6">
+  						<form id = "hotel" action="/car" method="post">
+  							<p>
+  								What kind of car do you want
+  							</p>
+  							<select class="form-control" id="cars" name="car">
+                  <option value="Bike">Bike - $12</option>
+                  <option value="Nissan Versa">Nissan Versa - $24.99</option>
+                  <option value="Toyota RAV4">Toyota RAV4 (SUV) - $85.99</option>
+                  <option value="Buick LaCrosse">Buick LaCrosse - $178.99</option>
+                  <option value="Tesla Model S">Tesla Model S - $300.99</option>
+  							</select>
+  							</div>
+  							<div class="col-md-6">
+  								<div id="arrive">
+  								How many days do you need the car<br>
+  							</div>
+  								<div class="form-group arrival">
+  									<input type="number" class="form-control" max="14" min="1" name="days" value="">
+  								</div>
+                  <input type="hidden" name="userId" value="$user.getId()">
+  								<button id = "hotel-button" type="submit" id="submit"class="btn btn-info">Book car</button>
+  							</div>
+
+  							</div>
+  						</form>
+  					</div>
+  			</div>
+  		</div>
+  		<div class="cut cut-bottom"></div>
+  	</section>
+  #end
+  #if ($flight || $hotel || $car)
+    <section id="itinerary" class="section section-padded">
+      <div class="container">
+        <div class="row text-center title">
+          <h2 class="subtitle">$user.getName()'s Itinerary</h2>
+        </div>
+        <div class="jumbotron white-text">
+          <h1>$user.getName()'s Itinerary</h1>
+          #set($totalFlight = 0)
+          #set($totalHotel = 0)
+          #set($totalCar = 0)
+          #if ($flight)
+            <h2 class="white-text">Flight Information</h2>
+            <ul>
+              <li>Carrier: $flight.getCarrier()</li>
+              <li>Start Location: $flight.getStartLocation()</li>
+              <li>End Location: $flight.getEndLocation()</li>
+              <li>Start Date: $flight.getStartDate()</li>
+              <li>End Date: $flight.getEndDate()</li>
+              <li>Group Size: $flight.getGroupSize()</li>
+              <li>Price Per Person: $flight.getPrice()</li>
+              #set($totalFlight = $flight.getPrice() * $flight.getGroupSize())
+              <li>Total Flight Cost: $totalFlight</li>
+            </ul>
+          #end
+          #if($hotel)
+            <h2 class="white-text">Hotel Booking</h2>
+            <ul>
+              <li>Hotel: $hotel.getName()</li>
+              <li>Nights Booked: $hotel.getDuration()</li>
+              <li>Rooms Booked: $hotel.getRoomsBooked()</li>
+              <li>Price Per Night: $hotel.getPrice()</li>
+              #set($totalHotel = $hotel.getPrice() * $hotel.getRoomsBooked())
+              <li>Total Hotel Cost: $totalHotel</li>
+            </ul>
+          #end
+          #if ($car)
+            <h2 class="white-text">Car Rental Information</h2>
+            <ul>
+              <li>Company: Hertz</li>
+              <li>Vehicle Type: $car.getName()</li>
+              <li>Days Rented: $car.getRentalDays()</li>
+              <li>Price Per Day: $car.getPrice()</li>
+              #set($totalCar = $car.getPrice() * $car.getRentalDays())
+              <li>Total Rental Cost: $totalCar</li>
+            </ul>
+          #end
+          #set($overallCost = $totalFlight + $totalHotel + $totalCar)
+          <h4 class="white-text">Overall Cost = $overallCost</h4>
+        </div>
+        </div>
+      </div>
+      <div class="cut cut-bottom"></div>
+    </section>
+  #end
 	<section id="team" class="section gray-bg">
 		<div class="container">
 			<div class="row title text-center">
