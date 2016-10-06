@@ -22,7 +22,6 @@
         <li>Origin Airport: $place.getScannerCode()</li>
         #end
         #end
-        <li>Destination Date: $flight.getOutDestinationDate()</li>
       </ul>
       #end
       <form class="buy" action="/buy" method="post">
@@ -54,7 +53,6 @@
           <li>Origin Airport: $place.getScannerCode()</li>
           #end
           #end
-          <li>Destination Date: $flight.getInDestinationDate()</li>
         </ul>
         #end
       </div>
@@ -62,7 +60,7 @@
     #end
     #end
     #end
-    #else
+#else
     <h2>no flight found</h2>
 
     <div id="background">

@@ -94,6 +94,66 @@ public class App {
       return new ModelAndView(model, layout);
     },new VelocityTemplateEngine());
 
+    post("/hotel", (request,response)->{
+      Map<String,Object> model = new HashMap<String, Object>();
+      String hotel = request.queryParams("hotel");
+      int nightsBooked = Integer.parseInt(request.queryParams("night"));
+      int roomsBooked = Integer.parseInt(request.queryParams("room"));
+      int userId = Integer.parseInt(request.queryParams("userId"));
+      int cost = 0;
+      if (hotel.equals("Marriot")) {
+        cost = 195;
+      } else if (hotel.equals("La Quinta Inn and Suites")) {
+        cost = 114;
+      } else if (hotel.equals("Motel 6")) {
+        cost = 76;
+      } else if (hotel.equals("Best Western")) {
+        cost = 143;
+      } else {
+        cost = 734;
+      }
+      Hotel bookedHotel = new Hotel(hotel,cost,roomsBooked,nightsBooked,userId);
+      bookedHotel.save();
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    },new VelocityTemplateEngine());
+
+
+    post("/car", (request,response)->{
+      Map<String,Object> model = new HashMap<String, Object>();
+      String car = request.queryParams("car");
+      int days = Integer.parseInt(request.queryParams("days"));
+      int userId = Integer.parseInt(request.queryParams("userId"));
+      int cost = 0;
+      if (car.equals("Bike")) {
+        cost = 12;
+      } else if (car.equals("Nissan Versa")) {
+        cost = 24;
+      } else if (car.equals("Toyota RAV4")) {
+        cost = 85;
+      } else if (car.equals("Buick LaCrosse")) {
+        cost = 178;
+      } else {
+        cost = 300;
+      }
+      Car bookedCar = new Car(car,days,cost,userId);
+      bookedCar.save();
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    },new VelocityTemplateEngine());
+
+
+
+
+
+
+
+
+
+
+
+
+
     get("/find",  (request, response) -> {
       Map <String, Object> model = new HashMap <String, Object>();
       String originPlace = request.queryParams("originPlace");

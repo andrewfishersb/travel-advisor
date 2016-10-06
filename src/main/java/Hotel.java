@@ -3,25 +3,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel extends Booking {
-  private String location;
   private String name;
+  private int duration;
+  private int roomsBooked;
 
-
-  public Hotel(String name ,String location, String startDate, String endDate, int price, int groupsize, int userId){
-    this.startDate = startDate;
-    this.endDate = endDate;
+  public Hotel(String name , int price, int roomsBooked, int duration, int userId){
+    this.name = name;
     this.price = price;
-    this.groupSize = groupsize;
+    this.roomsBooked = roomsBooked;
     this.userId = userId;
-    this.location = location;
+    this.duration = duration;
   }
-
-  public String getLocation(){
-    return location;
-  }
-
+  
   public String getName(){
     return name;
+  }
+
+  public int getRoomsBooked(){
+    return roomsBooked;
+  }
+
+  public int getDuration(){
+    return duration;
   }
 
   public static List<Hotel> all(){
@@ -33,14 +36,12 @@ public class Hotel extends Booking {
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO hotels (name,location,startdate,enddate,price,groupsize,userid) VALUES(:name,:location,:startdate,:enddate,:price,:groupsize,:userid)";
+      String sql = "INSERT INTO hotels (name,roomsbooked,duration,price,userid) VALUES(:name,:roomsbooked,:duration,:price,:userid)";
       this.id = (int) con.createQuery(sql,true)
         .addParameter("name",this.name)
-        .addParameter("location",this.location)
-        .addParameter("startdate",this.startDate)
-        .addParameter("enddate",this.endDate)
+        .addParameter("roomsbooked",this.roomsBooked)
+        .addParameter("duration",this.duration)
         .addParameter("price",this.price)
-        .addParameter("groupsize",this.groupSize)
         .addParameter("userid",this.userId).executeUpdate().getKey();
     }
 
