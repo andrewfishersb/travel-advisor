@@ -14,7 +14,7 @@ public class Hotel extends Booking {
     this.userId = userId;
     this.duration = duration;
   }
-  
+
   public String getName(){
     return name;
   }
@@ -49,7 +49,7 @@ public class Hotel extends Booking {
 
       public static Hotel find(int id){
         try(Connection con = DB.sql2o.open()){
-          String sql = "SELECT * FROM hotels WHERE id = :id";
+          String sql = "SELECT * FROM hotels WHERE userid = :id";
           return con.createQuery(sql).addParameter("id",id).executeAndFetchFirst(Hotel.class);
         }
       }

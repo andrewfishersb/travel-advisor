@@ -33,7 +33,14 @@ public class Car extends Booking{
       return con.createQuery(sql).executeAndFetch(Car.class);
     }
   }
-  
+
+  public static Car find(int id){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM cars WHERE userid=:id";
+      return con.createQuery(sql).addParameter("id",id).executeAndFetchFirst(Car.class);
+    }
+  }
+
   public void save(){
     try(Connection con = DB.sql2o.open()){
       String sql = "INSERT INTO cars (name, rentaldays, price, userid) VALUES (:name, :rentaldays, :price, :userid)";

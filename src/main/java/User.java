@@ -116,6 +116,27 @@ public class User {
      }
    }
 
+   public void logout() {
+     try(Connection con = DB.sql2o.open()) {
+     String sql = "DELETE FROM flights WHERE userid = :id;";
+     con.createQuery(sql)
+       .addParameter("id", id)
+       .executeUpdate();
+
+       sql = "DELETE FROM cars WHERE userid = :id;";
+       con.createQuery(sql)
+         .addParameter("id", id)
+         .executeUpdate();
+
+         sql = "DELETE FROM hotels WHERE userid = :id;";
+         con.createQuery(sql)
+           .addParameter("id", id)
+           .executeUpdate();
+
+        loggedIn = false;
+     }
+   }
+
    public void delete() {
     try(Connection con = DB.sql2o.open()) {
     String sql = "DELETE FROM users WHERE id = :id;";

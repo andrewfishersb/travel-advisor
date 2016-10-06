@@ -15,15 +15,6 @@
       <h3>Cost: $flight.getPrice()</h3>
       <h2>Direct: $flight.getDirect()</h2>
       <h2>Flight Time: $flight.getBoundQuoteDateTime()</h2>
-      #if ($flight.getOutDestinationDate())
-      <ul>
-        #foreach ($place in $places)
-        #if ($place.getPlaceId() == $flight.getOutBoundOriginId())
-        <li>Origin Airport: $place.getScannerCode()</li>
-        #end
-        #end
-      </ul>
-      #end
       <form class="buy" action="/buy" method="post">
         <input name="cost" type="hidden" value="$flight.getPrice()" />
         <input name="airline" type="hidden" value="$carrier.getAirline()" />
@@ -46,15 +37,6 @@
         <h3>Cost: $flight.getPrice()</h3>
         <h2>Direct: $flight.getDirect()</h2>
         <h2>Flight Time: $flight.getBoundQuoteDateTime()</h2>
-        #if ($flight.getInDestinationDate())
-        <ul>
-          #foreach ($place in $places)
-          #if ($place.getPlaceId() == $flight.getInBoundOriginId())
-          <li>Origin Airport: $place.getScannerCode()</li>
-          #end
-          #end
-        </ul>
-        #end
       </div>
     </div>
     #end

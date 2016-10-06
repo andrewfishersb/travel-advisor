@@ -20,7 +20,11 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("user", request.session().attribute("user"));
-      if (User.getLogInStatus()) {
+      User user = request.session().attribute("user");
+      if (user.getLogInStatus()) {
+        model.put("flight", Flight.find(user.getId()));
+        model.put("hotel", Hotel.find(user.getId()));
+        model.put("car", Car.find(user.getId()));
         model.put("template", "templates/form.vtl");
       } else {
         model.put("template", "templates/user-login.vtl");
@@ -143,7 +147,14 @@ public class App {
     },new VelocityTemplateEngine());
 
 
-
+    post("/logout",(request,response)->{
+      Map<String, Object> model = new HashMap<String, Object>();
+      User logoutUser = request.session().attribute("user");
+      logoutUser.logout();
+      request.session().removeAttribute("user");
+      response.redirect("/");
+      return new ModelAndView(model,layout);
+    }, new VelocityTemplateEngine());
 
 
 
