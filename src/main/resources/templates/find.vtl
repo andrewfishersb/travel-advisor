@@ -5,13 +5,13 @@
       #foreach ($flight in $flights)
         #if($flight.getOutBoundCarrierId() == $carrier.getCarrierId())
         <div class = "jumbotron">
+          <h1 id="white-text">$carrier.getAirline()</h1>
           <div class="row">
             #if ($flight.getOutBoundDestinationId() && $flight.getInBoundDestinationId())
               <div class="col-md-6">
             #else
               <div class="col-md-12">
             #end
-              <h1 id="white-text">$carrier.getAirline()</h1>
               <h2 class="white-text">Outbound Flight</h2>
               <h3 class="white-text">Cost: $flight.getPrice()</h3>
               <h2 class="white-text">Direct: $flight.getDirect()</h2>
@@ -33,7 +33,6 @@
             #else
               <div class="col-md-12">
             #end
-                <br>
                 <h2 class="white-text">Inbound Flight</h2>
                 <h3 class="white-text">Cost: $flight.getPrice()</h3>
                 <h2 class="white-text">Direct: $flight.getDirect()</h2>
