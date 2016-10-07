@@ -75,27 +75,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // get("/users/:id", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   model.put("user", request.session().attribute("user"));
-    //   model.put("template", "templates/form.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-
-    // post("/itinerary/flights/results", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   String flightDepart = request.queryParams("depart");
-    //   String flightArrive = request.queryParams("arrive");
-    //   String flightDepartDate = request.queryParams("depart-date");
-    //   String flightReturnDate = request.queryParams("return-date");
-    //   int groupSize = Integer.parseInt(request.queryParams("group-size"));
-    //   Flight newFlight = new Flight(flightDepartDate, flightReturnDate, 0, groupSize, 1, flightDepart, flightArrive);
-    //   newFlight.save();
-    //   response.redirect("itinerary/flights/" + flightDepart + "/" + flightArrive + "/" + flightDepartDate + "/" + flightReturnDate);
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-
-    //creates the train
     post("/buy", (request, response) ->{
       Map<String,Object> model = new HashMap<String, Object>();
       String airline = request.queryParams("airline");
