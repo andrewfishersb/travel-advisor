@@ -178,12 +178,6 @@ public class App {
       String url = "http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/US/USD/en-us/" + originPlace + "/" + destinationPlace + "/" + outboundPartialDate + "/" + inboundPartialDate + "?apiKey=jo567814663897645898889958369326";
       String output = getData(url);
 
-      String[] outboundArray = outboundPartialDate.split("-");
-      outboundPartialDate = String.format("%s/%s/%s",outboundArray[1],outboundArray[2],outboundArray[0]);
-
-      String[] inboundArray = inboundPartialDate.split("-");
-      inboundPartialDate = String.format("%s/%s/%s",inboundArray[1],inboundArray[2],inboundArray[0]);
-
       model.put("originPlace", originPlace);
       model.put("destinationPlace", destinationPlace);
       model.put("startdate",outboundPartialDate);
