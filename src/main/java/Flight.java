@@ -7,7 +7,6 @@ public class Flight extends Booking{
   private String startLocation;
   private String endLocation;
   private String carrier;
-  // private Flights flights; //should have a list of flights associated with this flight
 
   public Flight(String startDate, String endDate, double price, int groupsize,int userId,String startLocation,String endLocation, String carrier){
     this.startDate = startDate;

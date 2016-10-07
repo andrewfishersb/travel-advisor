@@ -120,17 +120,17 @@
 						<h5 class="white heading">Happy Clients</h5>
 						<div class="owl-testimonials bottom">
 							<div class="item">
-								<h4 class="white heading content">"Frugal flights allows me to take family vacations, for the cost of just my wife and I going with any other service"</h4>
+								<h4 class="white heading content">"Frugal flights allows me to take family vacations, for half the costs. Wish I'd thought of this revolutionary idea."</h4>
 								<h5 class="white heading light author">-Elon Musk</h5>
 							</div>
 							<div class="item">
 								<h4 class="white heading content">"I think that Frugal flights should be a household name!</h4>
 								<h5 class="white heading light author">-Albert Einstein</h5>
 							</div>
-							<!-- <div class="item">
+							<div class="item">
 								<h4 class="white heading content">"Incredible service, they have my lifetime loyalty"</h4>
-								<h5 class="white heading light author">-Steve jobs</h5>
-							</div> -->
+								<h5 class="white heading light author">-Tyler Suderman</h5>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -151,14 +151,14 @@
               <div class="form-group">
                 <label for="departure">Flying From:</label>
                 <select class="form-control" name="originPlace">
+									<option value="LAX">Los Angeles International</option>
+									<option value="JFK">John F. Kennedy</option>
+									<option value="DFW">Dallas/Fort Worth</option>
+									<option value="LHR">London Heathrow</option>
+									<option value="PDX">Portland International</option>
                   <option value="SBA">Santa Barbara</option>
                   <option value="SBP">San Luis Obispo</option>
-                  <option value="LAX">Los Angeles International</option>
-                  <option value="JFK">John F. Kennedy</option>
-                  <option value="DFW">Dallas/Fort Worth</option>
-                  <option value="LHR">London Heathrow</option>
                   <option value="RDU">Raleigh Durham International</option>
-                  <option value="PDX">Portland International</option>
                   <option value="ATL">Hartsfield&ndash;Jackson Atlanta</option>
                   <option value="SFO">San Francisco International</option>
                   <option value="MUC">Munich Airport</option>
@@ -173,15 +173,15 @@
               <div class="form-group">
                 <label for="destinationPlace">Flying To:</label>
                 <select class="form-control" name="destinationPlace">
+									<option value="JFK">John F. Kennedy</option>
+									<option value="LAX">Los Angeles International</option>
+									<option value="DFW">Dallas/Fort Worth</option>
+									<option value="LHR">London Heathrow</option>
+									<option value="PDX">Portland International</option>
                   <option value="SBA">Santa Barbara</option>
                   <option value="SBP">San Luis Obispo</option>
-                  <option value="LAX">Los Angeles International</option>
-                  <option value="JFK">John F. Kennedy</option>
-                  <option value="DFW">Dallas/Fort Worth</option>
-                  <option value="LHR">London Heathrow</option>
                   <option value="RDU">Raleigh Durham International</option>
-                  <option value="PDX">Portland International</option>
-                  <option value="ATL">Hartsfield–Jackson Atlanta</option>
+                  <option value="ATL">Hartsfield&ndash;Jackson Atlanta</option>
                   <option value="SFO">San Francisco International</option>
                   <option value="MUC">Munich Airport</option>
                 </select>
@@ -307,7 +307,6 @@
           <h2 class="subtitle">$user.getName()'s Itinerary</h2>
         </div>
         <div class="jumbotron white-text">
-          <h1>$user.getName()'s Itinerary</h1>
           #set($totalFlight = 0)
           #set($totalHotel = 0)
           #set($totalCar = 0)
@@ -320,9 +319,9 @@
               <li>Start Date: $flight.getStartDate()</li>
               <li>End Date: $flight.getEndDate()</li>
               <li>Group Size: $flight.getGroupSize()</li>
-              <li>Price Per Person: $flight.getPrice()</li>
+              <li>Price Per Person: $$flight.getPrice()</li>
               #set($totalFlight = $flight.getPrice() * $flight.getGroupSize())
-              <li>Total Flight Cost: $totalFlight</li>
+              <li>Total Flight Cost: $$totalFlight</li>
             </ul>
           #end
           #if($hotel)
@@ -331,9 +330,9 @@
               <li>Hotel: $hotel.getName()</li>
               <li>Nights Booked: $hotel.getDuration()</li>
               <li>Rooms Booked: $hotel.getRoomsBooked()</li>
-              <li>Price Per Night: $hotel.getPrice()</li>
+              <li>Price Per Night: $$hotel.getPrice()</li>
               #set($totalHotel = $hotel.getPrice() * $hotel.getRoomsBooked())
-              <li>Total Hotel Cost: $totalHotel</li>
+              <li>Total Hotel Cost: $$totalHotel</li>
             </ul>
           #end
           #if ($car)
@@ -342,13 +341,13 @@
               <li>Company: Hertz</li>
               <li>Vehicle Type: $car.getName()</li>
               <li>Days Rented: $car.getRentalDays()</li>
-              <li>Price Per Day: $car.getPrice()</li>
+              <li>Price Per Day: $$car.getPrice()</li>
               #set($totalCar = $car.getPrice() * $car.getRentalDays())
-              <li>Total Rental Cost: $totalCar</li>
+              <li>Total Rental Cost: $$totalCar</li>
             </ul>
           #end
           #set($overallCost = $totalFlight + $totalHotel + $totalCar)
-          <h4 class="white-text">Overall Cost = $overallCost</h4>
+          <h4 class="white-text">Overall Cost = $$overallCost</h4>
         </div>
         </div>
       </div>
@@ -380,8 +379,8 @@
 					<div class="team text-center">
 						<div class="cover" style="background:url('img/123.jpg'); background-size:cover;">
 							<div class="overlay text-center">
-								<h3 class="white">$100/hr</h3>
-								<h5 class="light light-white">Fullstack ruby, Paypal co-founder</h5>
+								<h3 class="white">$125/hr</h3>
+								<h5 class="light light-white">Fullstack Java, Midway founder</h5>
 							</div>
 						</div>
 						<img class = "circlepic" src="img/adam.jpeg" alt="Team Image" class="avatar">
@@ -395,7 +394,7 @@
 						<div class="cover" style="background:url('img/12.png'); background-size:cover;">
 							<div class="overlay text-center">
 								<h3 class="white">$130/hr </h3>
-								<h5 class="light light-white">senior Fullstack developer, early Google</h5>
+								<h5 class="light light-white">senior Fullstack developer, early Google senior developer, WWI veteran</h5>
 							</div>
 						</div>
 						<img class = "circlepic" src="img/andrew1.jpg" alt="Team Image" class="avatar">

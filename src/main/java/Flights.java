@@ -80,4 +80,12 @@ public class Flights{
     return direct;
   }
 
+  public String getOutBoundDate(String outbound){
+    return outbound;
+  }
+
+  public String getInBoundDate(String inbound){
+    return inbound;
+  }
+
 }

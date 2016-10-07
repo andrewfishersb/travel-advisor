@@ -1,11 +1,11 @@
 <div id="background">
   <div class="container">
-  <h1>WELCOME $user.getName()</h1>
-  <form action="/logout" method="post">
-    <button type="submit" class="btn btn-success"name="button">Log-Out</button>
-  </form>
+    <h1>WELCOME $user.getName()</h1>
+    <form action="/logout" method="post">
+      <button type="submit" class="btn btn-success"name="button">Log-Out</button>
+    </form>
 
-  #if (!$flight)
+    #if (!$flight)
     <div class="jumbotron">
       <form action="/find" method="get">
         <label for="originPlace">Flying From:</label>
@@ -53,9 +53,9 @@
         <button type="submit" name="button" class="btn btn-primary">Submit</button>
       </form>
     </div>
-  #end
+    #end
 
-  #if (!$hotel)
+    #if (!$hotel)
     <div class="jumbotron">
       <h3>Book a Hotel</h3>
       <form action="/hotel" method="post">
@@ -80,9 +80,9 @@
         <button type="submit" class="btn btn-danger" name="button">Book Rooms</button>
       </form>
     </div>
-  #end
+    #end
 
-  #if (!$car)
+    #if (!$car)
     <div class="jumbotron">
       <h3>Book a Car</h3>
       <form action="/car" method="post">
@@ -103,9 +103,9 @@
         <button type="submit" class="btn btn-danger" name="button">Book a Car</button>
       </form>
     </div>
-  #end
-<!-- itinerary -->
-  #if ($flight && $hotel && $car)
+    #end
+    <!-- itinerary -->
+    #if ($flight && $hotel && $car)
     <div class="jumbotron">
       <h1>$user.getName()'s Itinerary</h1>
       <h2>Flight Information</h2>
@@ -141,6 +141,6 @@
       #set($overallCost = $totalFlight + $totalHotel + $totalCar)
       <h4>Overall Cost = $overallCost</h4>
     </div>
-  #end
-</div>
+    #end
+  </div>
 </div>

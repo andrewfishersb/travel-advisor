@@ -2,7 +2,6 @@ import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//maybe add name for brand chain and company
 public abstract class Booking {
   protected String startDate;
   protected String endDate;
