@@ -17,7 +17,7 @@ public class UserTest{
     myUser.delete();
     assertEquals(null, User.find(myUserId));
   }
-  
+
   @Test
   public void findsCoreectUser_User_true() {
     User myUser = new User("Moe","password", "g@user.com", 22);
