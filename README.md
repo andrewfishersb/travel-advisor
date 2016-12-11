@@ -14,9 +14,6 @@ This site is a travel site where users can book hotels, flights and cars, using 
 |user input                | output
 |------------------------- | -------------
 |Type in the create an account fields and click submit| creates a user, and logs them in automatically
-
-|user input                | output
-|------------------------- | -------------
 |Type in login fields and click login| Searches for any existing logins if found that user if logged in, else an error page appears.
 
 #### Main Page
@@ -24,17 +21,8 @@ This site is a travel site where users can book hotels, flights and cars, using 
 |user input                | output
 |------------------------- | -------------
 |To book a flight the user enters flight information | if the requested flight query exists send the user to the flight page, else the user is sent a "cant find" error message and sent back to the main page
-
-|user input                | output
-|------------------------- | -------------
 |To book a hotel the user enters all hotel information | the hotel is added to their itinerary
-
-|user input                | output
-|------------------------- | -------------
 |To book a car the user enters all car information | the car is added to their itinerary
-
-|user input                | output
-|------------------------- | -------------
 |User can then hit the logout button | will send the user to the login page and delete their itinerary
 
 #### Flight Page
