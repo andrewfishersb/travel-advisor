@@ -4,6 +4,9 @@
 
 #### By **Adam Gorbahn, Andrew Fisher, Andrew Merrell, David Bethune, and Jackson Meyer**
 
+
+
+
 ## Description
 This site is a travel site where users can book hotels, flights and cars, using SkyScanner's cheap flight tracking API.
 
@@ -33,14 +36,19 @@ This site is a travel site where users can book hotels, flights and cars, using 
 
 ## Setup/Installation Requirements
 
-* need Java, gradle, spark, and Postgresql.
-
-## code
+* Require Java, Gradle, Spark and PostreSQL
+* terminal: git clone https://github.com/andrewfishersb/travel-advisor-java-group-project/
+* terminal: cd travel-advisor-java-group-project
+* terminal: postgres
+* open another terminal tab and type psql
 
 ```
 In Postgresql:
 
 create database travel_advisor;
+
+\c travel_advisor
+
 create table users (id serial PRIMARY KEY, name varchar, email varchar, age int, password varchar);
 
 create table flights (id serial PRIMARY KEY, startdate varchar, enddate varchar, price int, groupsize int, userid int, startlocation varchar, endlocation varchar, carrier varchar);
@@ -50,6 +58,8 @@ create table hotels (id serial PRIMARY KEY, name varchar, roomsbooked int, durat
 create table cars (id serial PRIMARY KEY, name varchar, rentaldays int, price int, userid int);
 
 create database travel_advisor_test;
+
+\c travel_advisor_test
 create table users (id serial PRIMARY KEY, name varchar, email varchar, age int, password varchar);
 
 create table flights (id serial PRIMARY KEY, startdate varchar, enddate varchar, price int, groupsize int, userid int, startlocation varchar, endlocation varchar, carrier varchar);
@@ -59,10 +69,14 @@ create table hotels (id serial PRIMARY KEY, name varchar, roomsbooked int, durat
 create table cars (id serial PRIMARY KEY, name varchar, rentaldays int, price int, userid int);
 
 ```
+* Go back to the original terminal tab
+* terminal: gradle build
+* terminal: gradle run
+* open up browser and enter localhost:4567 as your url
+
 
 ## Technologies Used
 
-* HTML
 * Java
 * Spark
 * JUint
@@ -70,6 +84,7 @@ create table cars (id serial PRIMARY KEY, name varchar, rentaldays int, price in
 * Postgresql
 * json.simple
 * SkyScanner API
+* HTML/CSS
 
 ### License
 
