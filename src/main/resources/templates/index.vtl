@@ -331,7 +331,7 @@
               <li>Nights Booked: $hotel.getDuration()</li>
               <li>Rooms Booked: $hotel.getRoomsBooked()</li>
               <li>Price Per Night: $$hotel.getPrice()</li>
-              #set($totalHotel = $hotel.getPrice() * $hotel.getRoomsBooked())
+              #set($totalHotel = $hotel.getPrice() * $hotel.getRoomsBooked()* $hotel.getDuration())
               <li>Total Hotel Cost: $$totalHotel</li>
             </ul>
           #end
