@@ -1,43 +1,60 @@
-# Travel Website using spark, java, javascript and postgresql
+# Frugal Flights
 
-## This site will uses java and postgresql to save and display your information, 10/06/16
 
 #### By **Adam Gorbahn, Andrew Fisher, Andrew Merrell, David Bethune, and Jackson Meyer**
 
+
+## Images
 ![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402013/55b040be-29ac-11e7-8c83-e9c3158d4fbc.png)
 ![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402014/55b30ba0-29ac-11e7-82c1-eadf9875764a.png)
 ![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402018/55be7b70-29ac-11e7-840a-585a4a3737c7.png)
 ![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402017/55be0028-29ac-11e7-8a3b-ff31439beb14.png)
 ![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402015/55bb3fd2-29ac-11e7-857b-7799d304618e.png)
-![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25402016/55bd25fe-29ac-11e7-8efd-f230a19441b3.png)
+![ScreenShot](https://cloud.githubusercontent.com/assets/17396138/25452414/6468cb7a-2a7a-11e7-8365-a167f63eec89.png)
 
 
 ## Description
 This site is a travel site where users can book hotels, flights and cars, using SkyScanner's cheap flight tracking API.
 
+## User Stories
+
+* As a user, I want to be able to create and account and login to the travel site.
+* As a user, I want to book a cheap flight on set dates.
+* As a user, I want to book a hotel for a number of nights.
+* As a user, I want to book a vehicle for a number of days.
+
 ## Specifications
 
-#### Login Page
+##### Login Page
+* Create an account.
+* Login to an account.
 
-|user input                | output
-|------------------------- | -------------
-|Type in the create an account fields and click submit| creates a user, and logs them in automatically
-|Type in login fields and click login| Searches for any existing logins if found that user if logged in, else an error page appears.
+##### Main Page
 
-#### Main Page
+* User can book a flight by entering the following information:
+  - Departure location and end location.
+  - Departure and return dates.
+  - Size of group you are booking.
 
-|user input                | output
-|------------------------- | -------------
-|To book a flight the user enters flight information | if the requested flight query exists send the user to the flight page, else the user is sent a "cant find" error message and sent back to the main page
-|To book a hotel the user enters all hotel information | the hotel is added to their itinerary
-|To book a car the user enters all car information | the car is added to their itinerary
-|User can then hit the logout button | will send the user to the login page and delete their itinerary
+* User can book a hotel by entering the following information:
+  - The hotel you want.
+  - Number of nights of the stay.
+  - Number of rooms required.
 
-#### Flight Page
+* User can book a vehicle by entering the following information:
+  - The car you want.
+  - Number of days the car is needed.
+* View itinerary with a cost breakdown for flight, hotel, car rental and overall cost.
 
-|user input                | output
-|------------------------- | -------------
-|User can look over all flights from their request and click add a flight| This will add users chosen site to their itinerary.
+##### Flight Page
+
+* Calls the SkyScanner API to find the cheapest flights.
+* View cheap flights with the following information:
+  - Airline
+  - Cost per person
+  - Whether in direct or non-direct
+  - Departure and return date.
+* Book a flight.
 
 ## Setup/Installation Requirements
 
